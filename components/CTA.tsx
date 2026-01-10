@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, User, Mail, Phone, CheckCircle, ChevronRight, ChevronLeft, Lock, Unlock, Trash2, AlertCircle, ShieldCheck, ArrowDown } from 'lucide-react';
+import { Clock, User, Mail, Phone, CheckCircle, ChevronRight, ChevronLeft, AlertCircle, ArrowDown } from 'lucide-react';
 
 const CTA: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,11 +12,8 @@ const CTA: React.FC = () => {
     phone: ''
   });
 
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [blockedDates, setBlockedDates] = useState<string[]>([]);
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [dateError, setDateError] = useState('');
-  const [blockedSlots, setBlockedSlots] = useState<Record<string, string[]>>({}); // Local Admin blocks
   const [serverBookedSlots, setServerBookedSlots] = useState<Record<string, string[]>>({}); // Server (Sheet) bookings
   const [isLoadingBookings, setIsLoadingBookings] = useState(false);
 
@@ -26,21 +23,13 @@ const CTA: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [timeLeft, setTimeLeft] = useState(3);
 
-  // Load blocked dates and slots (Local Admin & Server)
+  // Load blocked dates and slots (Server Only)
   useEffect(() => {
-    // 1. Local Admin Blocks
-    const savedDates = localStorage.getItem('tigerlee_blocked_dates');
-    if (savedDates) {
-      try { setBlockedDates(JSON.parse(savedDates)); } catch (e) { console.error(e); }
-    }
-    const savedSlots = localStorage.getItem('tigerlee_blocked_slots');
-    if (savedSlots) {
-      try { setBlockedSlots(JSON.parse(savedSlots)); } catch (e) { console.error(e); }
-    }
-
-    // 2. Fetch Server Bookings
+    // Fetch Server Bookings
     fetchBookings();
   }, []);
+
+
 
   const fetchBookings = async () => {
     setIsLoadingBookings(true);
@@ -143,12 +132,8 @@ const CTA: React.FC = () => {
     let error = '';
     let slots: string[] = [];
 
-    // 1. Check if blocked manually
-    if (blockedDates.includes(formData.date)) {
-      error = 'This date has been blocked by the administrator.';
-    }
-    // 2. Check Sunday (0)
-    else if (dayOfWeek === 0) {
+    // 1. Check Sunday (0)
+    if (dayOfWeek === 0) {
       error = 'Sorry, we are closed on Sundays.';
     }
     // 3. Assign Slots
@@ -168,7 +153,7 @@ const CTA: React.FC = () => {
       setFormData(prev => ({ ...prev, time: '' }));
     }
 
-  }, [formData.date, blockedDates]);
+  }, [formData.date]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -235,32 +220,8 @@ Sent from Tiger Lee's Website Booking Form`
     }
   };
 
-  const toggleAdmin = () => {
-    if (isAdmin) {
-      setIsAdmin(false);
-    } else {
-      const pwd = prompt("Enter Admin Password:");
-      if (pwd === "admin") { // Simple password for demo
-        setIsAdmin(true);
-      } else if (pwd !== null) {
-        alert("Incorrect password");
-      }
-    }
-  };
 
-  const handleBlockDate = () => {
-    if (formData.date && !blockedDates.includes(formData.date)) {
-      const newBlocked = [...blockedDates, formData.date].sort();
-      setBlockedDates(newBlocked);
-      localStorage.setItem('tigerlee_blocked_dates', JSON.stringify(newBlocked));
-    }
-  };
 
-  const handleUnblockDate = (dateToUnblock: string) => {
-    const newBlocked = blockedDates.filter(d => d !== dateToUnblock);
-    setBlockedDates(newBlocked);
-    localStorage.setItem('tigerlee_blocked_dates', JSON.stringify(newBlocked));
-  };
 
   // --- Calendar Helpers ---
   const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -290,24 +251,6 @@ Sent from Tiger Lee's Website Booking Form`
   const handleDateClick = (d: number) => {
     const dateStr = formatDate(year, month, d);
     setFormData(prev => ({ ...prev, date: dateStr, time: '' })); // Reset time when date changes
-  };
-
-  const handleSlotBlockToggle = (date: string, slot: string) => {
-    const currentBlocked = blockedSlots[date] || [];
-    let newBlocked;
-    if (currentBlocked.includes(slot)) {
-      newBlocked = currentBlocked.filter(s => s !== slot);
-    } else {
-      newBlocked = [...currentBlocked, slot];
-    }
-
-    const newBlockedSlots = { ...blockedSlots, [date]: newBlocked };
-    if (newBlocked.length === 0) {
-      delete newBlockedSlots[date];
-    }
-
-    setBlockedSlots(newBlockedSlots);
-    localStorage.setItem('tigerlee_blocked_slots', JSON.stringify(newBlockedSlots));
   };
 
   // Get today string for styling
@@ -369,51 +312,13 @@ Sent from Tiger Lee's Website Booking Form`
             transition={{ delay: 0.2 }}
           >
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden relative">
-              {/* Admin Toggle Button */}
-              <button
-                onClick={toggleAdmin}
-                className="absolute top-4 right-4 text-white/20 hover:text-white z-20 transition-colors"
-                title="Admin Login"
-              >
-                {isAdmin ? <Unlock size={16} /> : <Lock size={16} />}
-              </button>
-
               <div className="bg-brand-red p-4 text-center">
                 <h3 className="text-white font-bold text-xl uppercase tracking-wider">Book Your Appointment</h3>
               </div>
 
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
 
-                {/* Admin Panel */}
-                {isAdmin && (
-                  <div className="bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6 animate-in slide-in-from-top-5">
-                    <h4 className="font-bold text-gray-800 mb-2 flex items-center"><ShieldCheck size={16} className="mr-2 text-brand-red" /> Admin Controls</h4>
-                    <p className="text-xs text-gray-600 mb-2">Select a date to block specific time slots. Click "Blocked" slots to unblock.</p>
 
-                    {formData.date && !blockedDates.includes(formData.date) && (
-                      <button
-                        type="button"
-                        onClick={handleBlockDate}
-                        className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded border border-red-200 hover:bg-red-200 mb-3"
-                      >
-                        Block Entire Date ({formData.date})
-                      </button>
-                    )}
-
-                    <div className="space-y-1 max-h-32 overflow-y-auto mt-2">
-                      <p className="text-xs font-bold text-gray-500 uppercase">Blocked Dates:</p>
-                      {blockedDates.map(date => (
-                        <div key={date} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-gray-200 text-sm">
-                          <span>{date}</span>
-                          <button type="button" onClick={() => handleUnblockDate(date)} className="text-red-500 hover:text-red-700">
-                            <Trash2 size={14} />
-                          </button>
-                        </div>
-                      ))}
-                      {blockedDates.length === 0 && <p className="text-xs text-gray-400 italic">No dates blocked entirely.</p>}
-                    </div>
-                  </div>
-                )}
 
                 {/* Step 1: Service */}
                 <div className="space-y-4">
@@ -474,7 +379,6 @@ Sent from Tiger Lee's Website Booking Form`
                         const d = i + 1;
                         const dateStr = formatDate(year, month, d);
                         const isSelected = formData.date === dateStr;
-                        const isBlocked = blockedDates.includes(dateStr);
                         const currentDayOfWeek = new Date(year, month, d).getDay();
                         const isSunday = currentDayOfWeek === 0;
                         const isToday = dateStr === todayStr;
@@ -488,7 +392,7 @@ Sent from Tiger Lee's Website Booking Form`
 
                         let btnClass = "relative w-full aspect-square flex items-center justify-center rounded-2xl text-base lg:text-lg font-bold transition-all duration-300 ";
 
-                        if (isBlocked || isPast) {
+                        if (isPast) {
                           btnClass += "text-gray-300 cursor-not-allowed font-normal bg-gray-50/50";
                         } else if (isSunday) {
                           btnClass += "text-red-200 cursor-not-allowed font-normal bg-red-50/10";
@@ -506,8 +410,8 @@ Sent from Tiger Lee's Website Booking Form`
                           <button
                             key={d}
                             type="button"
-                            onClick={() => !isBlocked && !isPast && !isSunday && handleDateClick(d)}
-                            disabled={isBlocked || isPast || isSunday}
+                            onClick={() => !isPast && !isSunday && handleDateClick(d)}
+                            disabled={isPast || isSunday}
                             className={btnClass}
                           >
                             {d}
@@ -544,31 +448,8 @@ Sent from Tiger Lee's Website Booking Form`
                           </div>
                         )}
                         {!isLoadingBookings && availableSlots.map(slot => {
-                          // Check Local Blocks
-                          const isLocalBlocked = blockedSlots[formData.date]?.includes(slot);
-                          // Check Server Bookings
                           const isServerBooked = serverBookedSlots[formData.date]?.includes(slot);
-
-                          const isBlocked = isLocalBlocked || isServerBooked;
-
-                          if (isAdmin) {
-                            return (
-                              <button
-                                key={slot}
-                                type="button"
-                                onClick={() => handleSlotBlockToggle(formData.date, slot)}
-                                className={`relative py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all duration-300 ${isBlocked
-                                  ? 'border-gray-200 bg-gray-100 text-gray-400 decoration-dotted'
-                                  : 'border-green-200 bg-green-50 text-green-700 hover:bg-green-100'
-                                  }`}
-                              >
-                                <span className="flex items-center justify-center">
-                                  {slot}
-                                  {isBlocked ? <Lock size={12} className="ml-1" /> : <Unlock size={12} className="ml-1" />}
-                                </span>
-                              </button>
-                            );
-                          }
+                          const isBlocked = isServerBooked;
 
                           return (
                             <button
