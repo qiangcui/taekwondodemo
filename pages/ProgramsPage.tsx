@@ -24,7 +24,7 @@ const ProgramSection: React.FC<{
               {/* Image Side - Full Bleed */}
               <motion.div
                 className="lg:w-1/2 min-h-[400px] lg:min-h-0 relative"
-                initial={{ opacity: 0, x: isReversed ? -30 : 30 }}
+                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
@@ -35,7 +35,7 @@ const ProgramSection: React.FC<{
               {/* Content Side */}
               <motion.div
                 className={`lg:w-1/2 py-20 ${isReversed ? 'lg:pl-16' : 'lg:pr-16'} px-6 md:px-12`}
-                initial={{ opacity: 0, x: isReversed ? 30 : -30 }}
+                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
@@ -60,7 +60,7 @@ const ProgramSection: React.FC<{
               {/* Content Side */}
               <motion.div
                 className="lg:w-1/2"
-                initial={{ opacity: 0, x: isReversed ? 30 : -30 }}
+                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? 30 : -30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
@@ -77,7 +77,7 @@ const ProgramSection: React.FC<{
               {/* Image Side */}
               <motion.div
                 className="lg:w-1/2 w-full"
-                initial={{ opacity: 0, x: isReversed ? -30 : 30 }}
+                initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: isReversed ? -30 : 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
@@ -117,7 +117,7 @@ const ProgramsPage: React.FC = () => {
 
         <div className="relative z-10 container mx-auto px-4 pt-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >

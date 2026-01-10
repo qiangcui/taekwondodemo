@@ -39,11 +39,11 @@ const programsData: Program[] = [
 
 const Programs: React.FC = () => {
   return (
-    <section id="programs" className="pt-10 pb-20 md:py-20 bg-white">
+    <section id="programs" className="pt-2 pb-20 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="font-heading text-5xl md:text-6xl font-bold text-gray-900 uppercase tracking-tight mb-4">Our Programs</h2>
+          <h2 className="font-heading text-[2.75rem] md:text-6xl font-bold text-gray-900 uppercase tracking-tight mb-4">Our Programs</h2>
           <div className="w-24 h-1 bg-brand-red mx-auto rounded-full"></div>
         </div>
 
@@ -73,9 +73,9 @@ const Programs: React.FC = () => {
 
                 {/* Title Section */}
                 <div className="mt-2 mb-4">
-                  <h3 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2 md:mb-3 tracking-wide leading-tight mx-auto">{program.title}</h3>
+                  <h3 className="font-heading text-4xl md:text-4xl font-bold text-white mb-2 md:mb-3 tracking-wide leading-tight mx-auto">{program.title}</h3>
                   <div className="inline-block bg-black/40 backdrop-blur-sm border border-white/5 px-4 py-1.5 rounded-full mb-2">
-                    <span className="text-brand-red font-bold uppercase tracking-widest text-[10px] sm:text-xs">
+                    <span className="text-brand-red font-bold uppercase tracking-widest text-xs sm:text-xs">
                       {program.ageGroup}
                     </span>
                   </div>
@@ -84,7 +84,7 @@ const Programs: React.FC = () => {
                 {/* Description */}
                 <div className="flex-grow flex items-center justify-center mb-8">
                   <p
-                    className="text-gray-100 text-sm md:text-base lg:text-lg font-light opacity-90 drop-shadow-md leading-relaxed md:leading-[2.3rem]"
+                    className="text-gray-100 text-base md:text-base lg:text-lg font-light opacity-90 drop-shadow-md leading-relaxed md:leading-[2.3rem]"
                   >
                     {program.description}
                   </p>

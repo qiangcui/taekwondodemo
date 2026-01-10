@@ -19,7 +19,7 @@ const GetStartedPage: React.FC = () => {
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 flex flex-col justify-center h-full pt-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl"

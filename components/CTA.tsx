@@ -225,7 +225,7 @@ Sent from Tiger Lee's Website Booking Form`
   const todayStr = formatDate(today.getFullYear(), today.getMonth(), today.getDate());
 
   return (
-    <section id="get-started" className="relative py-24 bg-brand-dark overflow-hidden">
+    <section id="get-started" className="relative py-16 md:py-24 bg-brand-dark overflow-hidden">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -235,8 +235,8 @@ Sent from Tiger Lee's Website Booking Form`
 
           {/* Left Content - Value Prop */}
           <motion.div
-            className="lg:w-1/2 pt-8"
-            initial={{ opacity: 0, x: -30 }}
+            className="lg:w-1/2 pt-0 lg:pt-8"
+            initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >

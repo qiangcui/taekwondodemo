@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center items-center text-center py-20">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="w-full flex flex-col items-center"

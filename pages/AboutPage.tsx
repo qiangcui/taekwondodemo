@@ -26,7 +26,7 @@ const AboutPage: React.FC = () => {
                 {/* Content */}
                 <div className="relative z-10 container mx-auto px-4 pt-20">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
@@ -81,7 +81,7 @@ const AboutPage: React.FC = () => {
                                 In 2006, Master Lee left South Korea, where he trained and instructed in the United States with Master Woo Sup Kim, a three-time Korean National Champion and the captain of the 2012 United States Olympic Tae Kwon Do team. Master Lee helped his students develop their skills, which enabled them to compete in tournaments, both at the national and international level. In 2012, he was selected to be the Head Master at Tiger Kim’s flagship school in Clemmons, NC, which, under his leadership, has grown to be Tiger Kim’s largest training center. He was also the head master at the Tiger Kim’s location in Tega Cay, South Carolina, where he was responsible for growing a new school.
                             </p>
                             <p>
-                                Master Lee currently holds a 7th Degree Black Belt from the World Tae Kwon Do Federation (WTF) and has a First degree black belt in Judo. He is a Kukkiwon Certified Tae Kwon Do Master Instructor and a certified Tae Kwon Do Referee. Master Lee is a standing member of the Korea Tae Kwon Do Association (KTA), is certified in First Aid and CPR and is also a certified chiropractor who loves to snowboard.
+                                Master Lee currently holds a 8th Degree Black Belt from the World Tae Kwon Do Federation (WTF) and has a First degree black belt in Judo. He is a Kukkiwon Certified Tae Kwon Do Master Instructor and a certified Tae Kwon Do Referee. Master Lee is a standing member of the Korea Tae Kwon Do Association (KTA), is certified in First Aid and CPR and is also a certified chiropractor who loves to snowboard.
                             </p>
                         </div>
                     </motion.div>

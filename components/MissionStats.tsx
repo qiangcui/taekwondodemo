@@ -20,7 +20,7 @@ const MissionStats: React.FC = () => {
           {/* Text Content */}
           <div className="lg:w-1/2">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
@@ -64,7 +64,7 @@ const MissionStats: React.FC = () => {
                   <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden shadow-inner">
                     <motion.div
                       className={`h-4 rounded-full ${stat.color}`}
-                      initial={{ width: 0 }}
+                      initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { width: `${stat.value}%` } : { width: 0 }}
                       whileInView={{ width: `${stat.value}%` }}
                       viewport={{ once: true }}
                       transition={{ duration: 1, delay: 0.2 + (index * 0.1) }}

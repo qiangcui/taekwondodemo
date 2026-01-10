@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
               <img
                 src={`${base}/assets/images/tiger-lees-logo.png`}
                 alt="Tiger Lee's Logo"
-                className="h-16 sm:h-20 md:h-28 w-auto transition-all duration-300 object-contain"
+                className="h-24 sm:h-24 md:h-28 w-auto transition-all duration-300 object-contain"
               />
             </Link>
           </div>

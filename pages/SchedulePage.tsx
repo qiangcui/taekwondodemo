@@ -130,7 +130,7 @@ const SchedulePage: React.FC = () => {
 
         <div className="relative z-10 container mx-auto px-4 pt-32">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={typeof window !== 'undefined' && window.innerWidth < 768 ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
@@ -145,7 +145,7 @@ const SchedulePage: React.FC = () => {
         </div>
       </div>
 
-      <div className="container mx-auto px-0 md:px-4 pt-4 md:py-16 pb-16">
+      <div className="container mx-auto px-0 md:px-4 pt-12 md:py-16 pb-16">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center mb-4 md:mb-8 gap-4 px-4 md:px-0">
             <h2 className="font-heading text-3xl font-bold text-gray-900">Current Schedule</h2>
