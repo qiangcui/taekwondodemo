@@ -1,0 +1,58 @@
+import React, { useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import HomePage from './pages/HomePage';
+import GetStartedPage from './pages/GetStartedPage';
+import AboutPage from './pages/AboutPage';
+import SchedulePage from './pages/SchedulePage';
+import ProgramsPage from './pages/ProgramsPage';
+import BirthdayPartyPage from './pages/BirthdayPartyPage';
+import FAQPage from './pages/FAQPage';
+import EducationPage from './pages/EducationPage';
+import ContactPage from './pages/ContactPage';
+
+// Component to scroll to top on route change or handle hash scrolling
+const ScrollToTop = () => {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash.substring(1));
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
+
+  return null;
+};
+
+function App() {
+  return (
+    <Router>
+      <div className="font-sans text-gray-900 bg-white">
+        <ScrollToTop />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/get-started" element={<GetStartedPage />} />
+          <Route path="/about-us" element={<AboutPage />} />
+          <Route path="/programs" element={<ProgramsPage />} />
+          <Route path="/birthday-parties" element={<BirthdayPartyPage />} />
+          <Route path="/schedule" element={<SchedulePage />} />
+          <Route path="/faq" element={<FAQPage />} />
+          <Route path="/education" element={<EducationPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  );
+}
+
+export default App;
