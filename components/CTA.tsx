@@ -16,6 +16,9 @@ const CTA: React.FC = () => {
   const [blockedDates, setBlockedDates] = useState<string[]>([]);
   const [availableSlots, setAvailableSlots] = useState<string[]>([]);
   const [dateError, setDateError] = useState('');
+  const [blockedSlots, setBlockedSlots] = useState<Record<string, string[]>>({}); // Local Admin blocks
+  const [serverBookedSlots, setServerBookedSlots] = useState<Record<string, string[]>>({}); // Server (Sheet) bookings
+  const [isLoadingBookings, setIsLoadingBookings] = useState(false);
 
   // Calendar State
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -23,17 +26,77 @@ const CTA: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [timeLeft, setTimeLeft] = useState(3);
 
-  // Load blocked dates
+  // Load blocked dates and slots (Local Admin & Server)
   useEffect(() => {
-    const saved = localStorage.getItem('tigerlee_blocked_dates');
-    if (saved) {
-      try {
-        setBlockedDates(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse blocked dates", e);
+    // 1. Local Admin Blocks
+    const savedDates = localStorage.getItem('tigerlee_blocked_dates');
+    if (savedDates) {
+      try { setBlockedDates(JSON.parse(savedDates)); } catch (e) { console.error(e); }
+    }
+    const savedSlots = localStorage.getItem('tigerlee_blocked_slots');
+    if (savedSlots) {
+      try { setBlockedSlots(JSON.parse(savedSlots)); } catch (e) { console.error(e); }
+    }
+
+    // 2. Fetch Server Bookings
+    fetchBookings();
+  }, []);
+
+  const fetchBookings = async () => {
+    setIsLoadingBookings(true);
+    // Use the same script URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPp8DUtxrS9c7BY6tp3O7hO6dPaoyB6MB--UlphQhdiWLt8WTLllRQPEsEV6wtvifI/exec";
+
+    try {
+      const response = await fetch(SCRIPT_URL);
+      const data = await response.json();
+      if (data && data.booked) {
+        // Normalize the booked slots to ensure formats match (e.g. "11:00 AM" vs "1899-12-30T11:00:00...")
+        const normalizedBooked: Record<string, string[]> = {};
+
+        Object.keys(data.booked).forEach(date => {
+          const rawSlots = data.booked[date] as string[];
+          normalizedBooked[date] = rawSlots.map(normalizeServerSlot);
+        });
+
+        setServerBookedSlots(normalizedBooked);
+      }
+    } catch (error) {
+      console.warn("Could not fetch bookings (Script likely not updated with doGet yet):", error);
+    } finally {
+      setIsLoadingBookings(false);
+    }
+  };
+
+  // Helper to standardise time strings from Google Sheets
+  const normalizeServerSlot = (slotRaw: string): string => {
+    if (!slotRaw) return '';
+    let slot = slotRaw.trim();
+
+    // Handle ISO strings from Google Sheets (e.g. "2023-12-30T16:30:00.000Z")
+    if (slot.includes('T') || slot.includes(':00.000')) {
+      const date = new Date(slot);
+      if (!isNaN(date.getTime())) {
+        let hours = date.getHours(); // Google Sheets seems to use local time effectively or Z-time. 
+        // Note: If script returns Z time, we might have timezone issues. 
+        // Assuming simple script `.toString()` which usually keeps local script timezone.
+
+        // However, simpler standardizer: if it contains ":" check the parts
+      }
+      // Fallback regex for "HH:mm:ss" in the string if Date parse is flaky
+      const match = slot.match(/(\d{1,2}):(\d{2})/);
+      if (match) {
+        let h = parseInt(match[1]);
+        const m = match[2];
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        if (h > 12) h -= 12;
+        if (h === 0) h = 12;
+        return `${h}:${m} ${ampm}`;
       }
     }
-  }, []);
+
+    return slot;
+  };
 
   // Handle Success Countdown
   useEffect(() => {
@@ -130,7 +193,7 @@ const CTA: React.FC = () => {
 
     setStatus('sending');
 
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-6Kx4pOiubQymxMhnaAE9wuWW0ifAB665azIrVPbhhal0oOdPvavDpbt3xLGL68rl/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPp8DUtxrS9c7BY6tp3O7hO6dPaoyB6MB--UlphQhdiWLt8WTLllRQPEsEV6wtvifI/exec";
 
     try {
       await fetch(SCRIPT_URL, {
@@ -138,8 +201,15 @@ const CTA: React.FC = () => {
         body: new URLSearchParams({
           name: formData.name,
           email: formData.email,
+          // NEW: Send explicit date/time for the script to store in columns
+          date: formData.date,
+          time: formData.time,
+          service: formData.service,
+          phone: formData.phone,
+          // Keep these for backward compatibility or email body composition if script logic is split
           subject: `Trial Lesson Booking: ${formData.service}`,
-          message: `New Booking Request Details:
+          // Removed manual 'message' field from body as per request, but keeping formatted message for email usage layout if needed internally
+          message_body: `New Booking Request Details:
 ------------------------
 Service: ${formData.service}
 Date: ${formData.date}
@@ -157,6 +227,8 @@ Sent from Tiger Lee's Website Booking Form`
       });
 
       setStatus('success');
+      // Refresh bookings after successful addition
+      fetchBookings();
     } catch (error) {
       console.error("Error sending message:", error);
       setStatus('error');
@@ -217,7 +289,25 @@ Sent from Tiger Lee's Website Booking Form`
 
   const handleDateClick = (d: number) => {
     const dateStr = formatDate(year, month, d);
-    setFormData(prev => ({ ...prev, date: dateStr }));
+    setFormData(prev => ({ ...prev, date: dateStr, time: '' })); // Reset time when date changes
+  };
+
+  const handleSlotBlockToggle = (date: string, slot: string) => {
+    const currentBlocked = blockedSlots[date] || [];
+    let newBlocked;
+    if (currentBlocked.includes(slot)) {
+      newBlocked = currentBlocked.filter(s => s !== slot);
+    } else {
+      newBlocked = [...currentBlocked, slot];
+    }
+
+    const newBlockedSlots = { ...blockedSlots, [date]: newBlocked };
+    if (newBlocked.length === 0) {
+      delete newBlockedSlots[date];
+    }
+
+    setBlockedSlots(newBlockedSlots);
+    localStorage.setItem('tigerlee_blocked_slots', JSON.stringify(newBlockedSlots));
   };
 
   // Get today string for styling
@@ -297,8 +387,21 @@ Sent from Tiger Lee's Website Booking Form`
                 {/* Admin Panel */}
                 {isAdmin && (
                   <div className="bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6 animate-in slide-in-from-top-5">
-                    <h4 className="font-bold text-gray-800 mb-2 flex items-center"><ShieldCheck size={16} className="mr-2 text-brand-red" /> Admin: Block Dates</h4>
-                    <div className="space-y-1 max-h-32 overflow-y-auto">
+                    <h4 className="font-bold text-gray-800 mb-2 flex items-center"><ShieldCheck size={16} className="mr-2 text-brand-red" /> Admin Controls</h4>
+                    <p className="text-xs text-gray-600 mb-2">Select a date to block specific time slots. Click "Blocked" slots to unblock.</p>
+
+                    {formData.date && !blockedDates.includes(formData.date) && (
+                      <button
+                        type="button"
+                        onClick={handleBlockDate}
+                        className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded border border-red-200 hover:bg-red-200 mb-3"
+                      >
+                        Block Entire Date ({formData.date})
+                      </button>
+                    )}
+
+                    <div className="space-y-1 max-h-32 overflow-y-auto mt-2">
+                      <p className="text-xs font-bold text-gray-500 uppercase">Blocked Dates:</p>
                       {blockedDates.map(date => (
                         <div key={date} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-gray-200 text-sm">
                           <span>{date}</span>
@@ -307,6 +410,7 @@ Sent from Tiger Lee's Website Booking Form`
                           </button>
                         </div>
                       ))}
+                      {blockedDates.length === 0 && <p className="text-xs text-gray-400 italic">No dates blocked entirely.</p>}
                     </div>
                   </div>
                 )}
@@ -375,9 +479,16 @@ Sent from Tiger Lee's Website Booking Form`
                         const isSunday = currentDayOfWeek === 0;
                         const isToday = dateStr === todayStr;
 
+                        // New: Check if date is in the past
+                        const bookingDate = new Date(year, month, d);
+                        // Reset hours to compare dates only
+                        const todayDate = new Date();
+                        todayDate.setHours(0, 0, 0, 0);
+                        const isPast = bookingDate < todayDate;
+
                         let btnClass = "relative w-full aspect-square flex items-center justify-center rounded-2xl text-base lg:text-lg font-bold transition-all duration-300 ";
 
-                        if (isBlocked) {
+                        if (isBlocked || isPast) {
                           btnClass += "text-gray-300 cursor-not-allowed font-normal bg-gray-50/50";
                         } else if (isSunday) {
                           btnClass += "text-red-200 cursor-not-allowed font-normal bg-red-50/10";
@@ -395,8 +506,8 @@ Sent from Tiger Lee's Website Booking Form`
                           <button
                             key={d}
                             type="button"
-                            onClick={() => !isBlocked && !isSunday && handleDateClick(d)}
-                            disabled={isBlocked || isSunday}
+                            onClick={() => !isBlocked && !isPast && !isSunday && handleDateClick(d)}
+                            disabled={isBlocked || isPast || isSunday}
                             className={btnClass}
                           >
                             {d}
@@ -427,22 +538,64 @@ Sent from Tiger Lee's Website Booking Form`
                       </div>
 
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        {availableSlots.map(slot => (
-                          <button
-                            key={slot}
-                            type="button"
-                            onClick={() => handleTimeSelection(slot)}
-                            className={`group relative overflow-hidden py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all duration-300 ${formData.time === slot
-                              ? 'border-brand-red bg-brand-red text-white shadow-md scale-[1.02]'
-                              : 'border-gray-100 bg-white text-gray-600 hover:border-brand-red/30 hover:shadow-md hover:text-brand-red'
-                              }`}
-                          >
-                            <span className="relative z-10 text-[13px]">{slot}</span>
-                            {formData.time !== slot && (
-                              <div className="absolute inset-0 bg-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                            )}
-                          </button>
-                        ))}
+                        {isLoadingBookings && (
+                          <div className="col-span-full text-center text-xs text-brand-red animate-pulse py-2">
+                            Checking availability...
+                          </div>
+                        )}
+                        {!isLoadingBookings && availableSlots.map(slot => {
+                          // Check Local Blocks
+                          const isLocalBlocked = blockedSlots[formData.date]?.includes(slot);
+                          // Check Server Bookings
+                          const isServerBooked = serverBookedSlots[formData.date]?.includes(slot);
+
+                          const isBlocked = isLocalBlocked || isServerBooked;
+
+                          if (isAdmin) {
+                            return (
+                              <button
+                                key={slot}
+                                type="button"
+                                onClick={() => handleSlotBlockToggle(formData.date, slot)}
+                                className={`relative py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all duration-300 ${isBlocked
+                                  ? 'border-gray-200 bg-gray-100 text-gray-400 decoration-dotted'
+                                  : 'border-green-200 bg-green-50 text-green-700 hover:bg-green-100'
+                                  }`}
+                              >
+                                <span className="flex items-center justify-center">
+                                  {slot}
+                                  {isBlocked ? <Lock size={12} className="ml-1" /> : <Unlock size={12} className="ml-1" />}
+                                </span>
+                              </button>
+                            );
+                          }
+
+                          return (
+                            <button
+                              key={slot}
+                              type="button"
+                              disabled={isBlocked}
+                              onClick={() => !isBlocked && handleTimeSelection(slot)}
+                              className={`group relative overflow-hidden py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all duration-300 ${isBlocked
+                                ? 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed decoration-slice'
+                                : formData.time === slot
+                                  ? 'border-brand-red bg-brand-red text-white shadow-md scale-[1.02]'
+                                  : 'border-gray-100 bg-white text-gray-600 hover:border-brand-red/30 hover:shadow-md hover:text-brand-red'
+                                }`}
+                            >
+                              {isBlocked ? (
+                                <span className="relative z-10 text-[13px] line-through decoration-brand-red/50 decoration-2">Booked</span>
+                              ) : (
+                                <>
+                                  <span className="relative z-10 text-[13px]">{slot}</span>
+                                  {formData.time !== slot && (
+                                    <div className="absolute inset-0 bg-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                  )}
+                                </>
+                              )}
+                            </button>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
