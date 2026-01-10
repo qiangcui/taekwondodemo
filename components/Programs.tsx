@@ -54,7 +54,7 @@ const Programs: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: typeof window !== 'undefined' && window.innerWidth < 768 ? 0 : index * 0.1 }}
-              className="group relative h-[680px] overflow-hidden rounded-2xl bg-gray-900 shadow-xl md:hover:shadow-2xl transition-all duration-300"
+              className="group relative min-h-[500px] h-full overflow-hidden rounded-2xl bg-gray-900 shadow-xl md:hover:shadow-2xl transition-all duration-300 flex flex-col"
             >
               {/* Background Image */}
               <div className="absolute inset-0">
@@ -67,11 +67,11 @@ const Programs: React.FC = () => {
               </div>
 
               {/* Content */}
-              <div className="relative z-10 h-full flex flex-col items-center text-center pt-10 px-8 pb-12">
+              <div className="relative z-10 h-full flex flex-col items-center text-center pt-8 md:pt-10 px-6 md:px-8 pb-10 md:pb-12 flex-grow">
 
                 {/* Title Section */}
                 <div className="mt-2 mb-4">
-                  <h3 className="font-heading text-4xl font-bold text-white mb-3 tracking-wide leading-tight mx-auto">{program.title}</h3>
+                  <h3 className="font-heading text-3xl md:text-4xl font-bold text-white mb-2 md:mb-3 tracking-wide leading-tight mx-auto">{program.title}</h3>
                   <div className="inline-block bg-black/40 backdrop-blur-sm border border-white/5 px-4 py-1.5 rounded-full mb-2">
                     <span className="text-brand-red font-bold uppercase tracking-widest text-[10px] sm:text-xs">
                       {program.ageGroup}
@@ -80,10 +80,9 @@ const Programs: React.FC = () => {
                 </div>
 
                 {/* Description */}
-                <div className="flex-grow flex items-center justify-center">
+                <div className="flex-grow flex items-center justify-center mb-8">
                   <p
-                    className="text-gray-100 text-base md:text-lg font-light opacity-90 drop-shadow-md"
-                    style={{ lineHeight: '2.3rem' }}
+                    className="text-gray-100 text-sm md:text-base lg:text-lg font-light opacity-90 drop-shadow-md leading-relaxed md:leading-[2.3rem]"
                   >
                     {program.description}
                   </p>
@@ -93,11 +92,11 @@ const Programs: React.FC = () => {
                 <div className="mt-auto w-full">
                   <Link
                     to={`/programs#${program.id}`}
-                    className="group/btn flex items-center justify-center space-x-3 bg-brand-red text-white py-4 px-8 rounded-full font-bold text-sm tracking-[0.2em] transition-all duration-300 hover:bg-red-700 hover:scale-105 shadow-lg shadow-red-950/20"
+                    className="group/btn flex items-center justify-center space-x-3 bg-brand-red text-white py-3.5 md:py-4 px-6 md:px-8 rounded-full font-bold text-xs md:text-sm tracking-[0.2em] transition-all duration-300 hover:bg-red-700 hover:scale-105 shadow-lg shadow-red-950/20"
                   >
                     <span>GET STARTED</span>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full border border-white/30 group-hover/btn:border-white transition-colors">
-                      <ChevronRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                    <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full border border-white/30 group-hover/btn:border-white transition-colors">
+                      <ChevronRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
                     </div>
                   </Link>
                 </div>
