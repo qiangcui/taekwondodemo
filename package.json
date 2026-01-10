@@ -9,17 +9,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "framer-motion": "^12.25.0",
+    "lucide-react": "^0.562.0",
+    "pdfjs-dist": "4.4.168",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "lucide-react": "^0.562.0",
-    "framer-motion": "^12.25.0",
-    "react-router-dom": "6.28.0",
     "react-pdf": "9.1.1",
-    "pdfjs-dist": "4.4.168"
+    "react-router-dom": "6.28.0"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "tailwindcss": "^4.1.18",
     "typescript": "~5.8.2",
     "vite": "^6.2.0"
   }
