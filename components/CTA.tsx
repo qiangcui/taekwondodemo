@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, User, Mail, Phone, CheckCircle, ChevronRight, ChevronLeft, Lock, Unlock, Trash2, AlertCircle, ShieldCheck, ArrowDown } from 'lucide-react';
 
 const CTA: React.FC = () => {
@@ -20,6 +20,9 @@ const CTA: React.FC = () => {
   // Calendar State
   const [currentMonth, setCurrentMonth] = useState(new Date());
 
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [timeLeft, setTimeLeft] = useState(3);
+
   // Load blocked dates
   useEffect(() => {
     const saved = localStorage.getItem('tigerlee_blocked_dates');
@@ -31,6 +34,32 @@ const CTA: React.FC = () => {
       }
     }
   }, []);
+
+  // Handle Success Countdown
+  useEffect(() => {
+    if (status === 'success') {
+      setTimeLeft(3);
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            setStatus('idle');
+            // Reset form data after 3s
+            setFormData({
+              service: 'Trial Lesson Special - $20',
+              date: '',
+              time: '',
+              name: '',
+              email: '',
+              phone: ''
+            });
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [status]);
 
   // Handle Date Changes & Slot Calculation
   useEffect(() => {
@@ -87,9 +116,9 @@ const CTA: React.FC = () => {
     setFormData(prev => ({ ...prev, time }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (dateError) {
       alert("Please select a valid date.");
       return;
@@ -99,9 +128,18 @@ const CTA: React.FC = () => {
       return;
     }
 
-    const subject = encodeURIComponent("New Booking Request: Tiger Lee's TKD");
-    const body = encodeURIComponent(`
-Booking Request Details:
+    setStatus('sending');
+
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz-6Kx4pOiubQymxMhnaAE9wuWW0ifAB665azIrVPbhhal0oOdPvavDpbt3xLGL68rl/exec";
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: new URLSearchParams({
+          name: formData.name,
+          email: formData.email,
+          subject: `Trial Lesson Booking: ${formData.service}`,
+          message: `New Booking Request Details:
 ------------------------
 Service: ${formData.service}
 Date: ${formData.date}
@@ -113,9 +151,16 @@ Name: ${formData.name}
 Email: ${formData.email}
 Phone: ${formData.phone}
 
-Sent from Tiger Lee's Website Booking Form
-`);
-    window.location.href = `mailto:gloriacloudco@gmail.com?subject=${subject}&body=${body}`;
+Sent from Tiger Lee's Website Booking Form`
+        } as any),
+        mode: 'no-cors'
+      });
+
+      setStatus('success');
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setStatus('error');
+    }
   };
 
   const toggleAdmin = () => {
@@ -171,8 +216,8 @@ Sent from Tiger Lee's Website Booking Form
   };
 
   const handleDateClick = (d: number) => {
-      const dateStr = formatDate(year, month, d);
-      setFormData(prev => ({ ...prev, date: dateStr }));
+    const dateStr = formatDate(year, month, d);
+    setFormData(prev => ({ ...prev, date: dateStr }));
   };
 
   // Get today string for styling
@@ -184,29 +229,28 @@ Sent from Tiger Lee's Website Booking Form
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
       <div className="absolute top-0 right-0 w-96 h-96 bg-brand-red/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row gap-16 items-start">
-          
+
           {/* Left Content - Value Prop */}
-          <motion.div 
+          <motion.div
             className="lg:w-1/2 pt-8"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            {/* Main Text Content */}
             <div className="prose prose-lg text-gray-300 mb-8">
               <p className="leading-relaxed mb-6">
                 Tiger Lee's World Class Tae Kwon Do has made it easy to get started. We offer a $20 trial program which gives new students the opportunity to try Tae Kwon Do, without obligation. During the trial period, new students will participate in a class with people of similar ability. The trial classes also allow parents and/or students to talk with our instructors about the many benefits Tae Kwon Do offers. There is no obligation at all after the trial program.
               </p>
-              
+
               <div className="flex items-center text-brand-red font-bold text-lg mb-6">
                 <ArrowDown className="mr-2 animate-bounce" size={24} />
                 <span>Schedule Your Trial Lesson. It only takes a minute!</span>
               </div>
             </div>
-            
+
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl mb-8">
               <h3 className="text-xl font-bold text-white mb-4">This Beginner Special Program includes:</h3>
               <ul className="space-y-4">
@@ -227,7 +271,7 @@ Sent from Tiger Lee's Website Booking Form
           </motion.div>
 
           {/* Right Content - Booking Form */}
-          <motion.div 
+          <motion.div
             className="lg:w-1/2 w-full"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -236,7 +280,7 @@ Sent from Tiger Lee's Website Booking Form
           >
             <div className="bg-white rounded-2xl shadow-2xl overflow-hidden relative">
               {/* Admin Toggle Button */}
-              <button 
+              <button
                 onClick={toggleAdmin}
                 className="absolute top-4 right-4 text-white/20 hover:text-white z-20 transition-colors"
                 title="Admin Login"
@@ -247,37 +291,22 @@ Sent from Tiger Lee's Website Booking Form
               <div className="bg-brand-red p-4 text-center">
                 <h3 className="text-white font-bold text-xl uppercase tracking-wider">Book Your Appointment</h3>
               </div>
-              
+
               <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                
+
                 {/* Admin Panel */}
                 {isAdmin && (
                   <div className="bg-gray-100 p-4 rounded-lg border border-gray-300 mb-6 animate-in slide-in-from-top-5">
-                    <h4 className="font-bold text-gray-800 mb-2 flex items-center"><ShieldCheck size={16} className="mr-2 text-brand-red"/> Admin: Block Dates</h4>
-                    <p className="text-xs text-gray-600 mb-2">Select a date in the calendar below and click "Block Selected Date".</p>
-                    
-                    <div className="flex space-x-2 mb-4">
-                        <button 
-                            type="button" 
-                            onClick={handleBlockDate}
-                            disabled={!formData.date}
-                            className="bg-brand-dark text-white text-xs px-3 py-2 rounded hover:bg-black disabled:opacity-50"
-                        >
-                            Block {formData.date || "Selected Date"}
-                        </button>
-                    </div>
-
+                    <h4 className="font-bold text-gray-800 mb-2 flex items-center"><ShieldCheck size={16} className="mr-2 text-brand-red" /> Admin: Block Dates</h4>
                     <div className="space-y-1 max-h-32 overflow-y-auto">
-                        <p className="text-xs font-bold text-gray-500 uppercase">Blocked Dates:</p>
-                        {blockedDates.length === 0 && <p className="text-xs text-gray-400 italic">No dates blocked.</p>}
-                        {blockedDates.map(date => (
-                            <div key={date} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-gray-200 text-sm">
-                                <span>{date}</span>
-                                <button type="button" onClick={() => handleUnblockDate(date)} className="text-red-500 hover:text-red-700">
-                                    <Trash2 size={14} />
-                                </button>
-                            </div>
-                        ))}
+                      {blockedDates.map(date => (
+                        <div key={date} className="flex justify-between items-center bg-white px-2 py-1 rounded border border-gray-200 text-sm">
+                          <span>{date}</span>
+                          <button type="button" onClick={() => handleUnblockDate(date)} className="text-red-500 hover:text-red-700">
+                            <Trash2 size={14} />
+                          </button>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -286,7 +315,7 @@ Sent from Tiger Lee's Website Booking Form
                 <div className="space-y-4">
                   <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">1. Select Service</label>
                   <div className="relative">
-                    <select 
+                    <select
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
@@ -302,111 +331,120 @@ Sent from Tiger Lee's Website Booking Form
                   </div>
                 </div>
 
-                {/* Step 2: Calendar */}
-                <div className="space-y-4">
-                  <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">2. Select Date & Time</label>
-                  
-                  <div className="border border-gray-200 rounded-xl overflow-hidden bg-gray-50 p-4">
+                {/* Step 2: Calendar - SHRUNKEN */}
+                <div className="flex flex-col items-center space-y-6">
+                  <div className="flex items-center space-x-2 text-brand-red">
+                    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-brand-red text-white text-xs font-bold">2</span>
+                    <label className="text-base font-bold text-gray-800 uppercase tracking-wide">Select Date & Time</label>
+                  </div>
+
+                  <div className="w-full max-w-[480px] bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
                     {/* Calendar Header */}
-                    <div className="flex justify-between items-center mb-4">
-                        <button type="button" onClick={prevMonth} className="p-1 hover:bg-gray-200 rounded-full transition-colors">
-                            <ChevronLeft size={20} className="text-gray-600"/>
-                        </button>
-                        <h4 className="font-bold text-gray-800 text-lg">
-                            {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-                        </h4>
-                        <button type="button" onClick={nextMonth} className="p-1 hover:bg-gray-200 rounded-full transition-colors">
-                            <ChevronRight size={20} className="text-gray-600"/>
-                        </button>
+                    <div className="flex justify-between items-center mb-6">
+                      <button type="button" onClick={prevMonth} className="p-2 hover:bg-red-50 text-gray-400 hover:text-brand-red rounded-full transition-all duration-300">
+                        <ChevronLeft size={24} strokeWidth={2.5} />
+                      </button>
+                      <h4 className="font-extrabold text-gray-800 text-xl tracking-tight">
+                        {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                      </h4>
+                      <button type="button" onClick={nextMonth} className="p-2 hover:bg-red-50 text-gray-400 hover:text-brand-red rounded-full transition-all duration-300">
+                        <ChevronRight size={24} strokeWidth={2.5} />
+                      </button>
                     </div>
 
                     {/* Calendar Grid */}
-                    <div className="grid grid-cols-7 gap-1 text-center mb-2">
-                        {daysOfWeek.map(day => (
-                            <div key={day} className="text-xs font-bold text-gray-400 uppercase tracking-wider py-1">
-                                {day}
-                            </div>
-                        ))}
+                    <div className="grid grid-cols-7 mb-4">
+                      {daysOfWeek.map(day => (
+                        <div key={day} className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest py-1">
+                          {day}
+                        </div>
+                      ))}
                     </div>
-                    <div className="grid grid-cols-7 gap-1">
-                        {/* Empty cells for padding start of month */}
-                        {[...Array(firstDay)].map((_, i) => (
-                            <div key={`empty-${i}`} className="p-2"></div>
-                        ))}
-                        
-                        {/* Days */}
-                        {[...Array(days)].map((_, i) => {
-                            const d = i + 1;
-                            const dateStr = formatDate(year, month, d);
-                            const isSelected = formData.date === dateStr;
-                            const isBlocked = blockedDates.includes(dateStr);
-                            const currentDayOfWeek = new Date(year, month, d).getDay();
-                            const isSunday = currentDayOfWeek === 0;
-                            const isToday = dateStr === todayStr;
 
-                            let btnClass = "w-full aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-all ";
-                            
-                            if (isBlocked) {
-                                btnClass += "bg-red-100 text-red-400 cursor-not-allowed decoration-red-400";
-                            } else if (isSunday) {
-                                btnClass += "bg-gray-100 text-gray-300 cursor-not-allowed";
-                            } else if (isSelected) {
-                                btnClass += "bg-brand-red text-white shadow-md transform scale-105";
-                            } else {
-                                btnClass += "bg-white hover:bg-red-50 hover:text-brand-red text-gray-700 border border-gray-100";
-                            }
+                    <div className="grid grid-cols-7 gap-2 lg:gap-3">
+                      {[...Array(firstDay)].map((_, i) => (
+                        <div key={`empty-${i}`} className="p-2"></div>
+                      ))}
 
-                            if (isToday && !isSelected) {
-                                btnClass += " ring-1 ring-brand-red ring-offset-1";
-                            }
+                      {[...Array(days)].map((_, i) => {
+                        const d = i + 1;
+                        const dateStr = formatDate(year, month, d);
+                        const isSelected = formData.date === dateStr;
+                        const isBlocked = blockedDates.includes(dateStr);
+                        const currentDayOfWeek = new Date(year, month, d).getDay();
+                        const isSunday = currentDayOfWeek === 0;
+                        const isToday = dateStr === todayStr;
 
-                            return (
-                                <button
-                                    key={d}
-                                    type="button"
-                                    onClick={() => !isBlocked && !isSunday && handleDateClick(d)}
-                                    disabled={isBlocked || isSunday}
-                                    className={btnClass}
-                                >
-                                    {d}
-                                </button>
-                            );
-                        })}
+                        let btnClass = "relative w-full aspect-square flex items-center justify-center rounded-2xl text-base lg:text-lg font-bold transition-all duration-300 ";
+
+                        if (isBlocked) {
+                          btnClass += "text-gray-300 cursor-not-allowed font-normal bg-gray-50/50";
+                        } else if (isSunday) {
+                          btnClass += "text-red-200 cursor-not-allowed font-normal bg-red-50/10";
+                        } else if (isSelected) {
+                          btnClass += "bg-gradient-to-br from-brand-red to-red-600 text-white shadow-lg shadow-red-200 scale-105 z-10";
+                        } else {
+                          btnClass += "text-gray-700 hover:bg-red-50 hover:text-brand-red hover:scale-110";
+                        }
+
+                        if (isToday && !isSelected) {
+                          btnClass += " text-brand-red bg-red-50 ring-1 ring-inset ring-red-100";
+                        }
+
+                        return (
+                          <button
+                            key={d}
+                            type="button"
+                            onClick={() => !isBlocked && !isSunday && handleDateClick(d)}
+                            disabled={isBlocked || isSunday}
+                            className={btnClass}
+                          >
+                            {d}
+                            {isToday && !isSelected && (
+                              <div className="absolute bottom-1.5 w-1 h-1 bg-brand-red rounded-full"></div>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 
                   {dateError && (
-                    <div className="flex items-center text-red-500 text-sm bg-red-50 p-2 rounded">
-                        <AlertCircle size={16} className="mr-2" />
-                        {dateError}
+                    <div className="flex items-center text-red-600 text-sm bg-red-50/80 p-4 rounded-xl w-full max-w-[480px] border border-red-100 backdrop-blur-sm animate-in fade-in slide-in-from-top-2">
+                      <AlertCircle size={18} className="mr-3 shrink-0" />
+                      {dateError}
                     </div>
                   )}
 
-                  {/* Dynamic Time Slots */}
+                  {/* Date Selection Display & Time Slots */}
                   {formData.date && !dateError && (
-                      <div className="animate-in fade-in slide-in-from-top-2 pt-2">
-                         <p className="text-xs font-bold text-gray-500 uppercase mb-2">
-                            Available Slots for {new Date(formData.date.split('-').join('/')).toLocaleDateString('en-US', {weekday: 'long', month: 'short', day: 'numeric'})}:
-                         </p>
-                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            {availableSlots.length > 0 ? availableSlots.map(slot => (
-                                <button
-                                    key={slot}
-                                    type="button"
-                                    onClick={() => handleTimeSelection(slot)}
-                                    className={`py-2 px-1 text-sm rounded border transition-all ${
-                                        formData.time === slot 
-                                        ? 'bg-brand-red text-white border-brand-red shadow-md' 
-                                        : 'bg-white text-gray-700 border-gray-200 hover:border-brand-red hover:text-brand-red'
-                                    }`}
-                                >
-                                    {slot}
-                                </button>
-                            )) : (
-                                <p className="col-span-4 text-sm text-gray-500 italic">No slots available for this date.</p>
-                            )}
-                         </div>
+                    <div className="w-full max-w-[480px] space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                      <div className="flex items-center space-x-2 px-1">
+                        <Clock size={16} className="text-brand-red" />
+                        <p className="text-sm font-bold text-gray-500 uppercase tracking-wider">
+                          Available Times
+                        </p>
                       </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                        {availableSlots.map(slot => (
+                          <button
+                            key={slot}
+                            type="button"
+                            onClick={() => handleTimeSelection(slot)}
+                            className={`group relative overflow-hidden py-3 px-2 rounded-xl border-2 font-bold text-sm transition-all duration-300 ${formData.time === slot
+                              ? 'border-brand-red bg-brand-red text-white shadow-md scale-[1.02]'
+                              : 'border-gray-100 bg-white text-gray-600 hover:border-brand-red/30 hover:shadow-md hover:text-brand-red'
+                              }`}
+                          >
+                            <span className="relative z-10 text-[13px]">{slot}</span>
+                            {formData.time !== slot && (
+                              <div className="absolute inset-0 bg-red-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
 
@@ -415,59 +453,72 @@ Sent from Tiger Lee's Website Booking Form
                 {/* Step 3: Contact Details */}
                 <div className="space-y-4">
                   <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">3. Your Details</label>
-                  
+
                   <div className="relative">
-                    <input 
+                    <input
                       type="text"
                       name="name"
                       required
                       placeholder="Full Name"
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                      className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none"
                     />
                     <User className="absolute left-3 top-3.5 text-gray-400" size={18} />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="relative">
-                      <input 
+                      <input
                         type="email"
                         name="email"
                         required
-                        placeholder="Email Address"
+                        placeholder="Email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none"
                       />
                       <Mail className="absolute left-3 top-3.5 text-gray-400" size={18} />
                     </div>
                     <div className="relative">
-                      <input 
+                      <input
                         type="tel"
                         name="phone"
                         required
-                        placeholder="Phone Number"
+                        placeholder="Phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red focus:border-transparent outline-none"
+                        className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none"
                       />
                       <Phone className="absolute left-3 top-3.5 text-gray-400" size={18} />
                     </div>
                   </div>
                 </div>
 
-                <button 
-                  type="submit" 
-                  disabled={!formData.date || !!dateError || !formData.time}
-                  className="w-full bg-brand-red text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:bg-red-700 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center space-x-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                <button
+                  type="submit"
+                  disabled={!formData.date || !!dateError || !formData.time || status === 'sending' || status === 'success'}
+                  className="w-full bg-brand-red text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:bg-red-700 transition-all hover:scale-[1.02] flex items-center justify-center space-x-2 disabled:opacity-50"
                 >
-                  <span>Confirm Booking</span>
-                  <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <span>{status === 'sending' ? 'Sending...' : 'Confirm Booking'}</span>
+                  {status !== 'sending' && <ChevronRight size={20} />}
                 </button>
-                
-                <p className="text-center text-xs text-gray-400">
-                  By booking, you agree to our terms. We'll confirm your appointment via email.
+
+                <AnimatePresence>
+                  {status === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-center"
+                    >
+                      <p className="font-bold">Booking Request Sent!</p>
+                      <p className="text-sm">Closing in {timeLeft}s...</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <p className="text-center text-[10px] text-gray-400">
+                  By booking, you agree to our terms. We'll confirm via email.
                 </p>
               </form>
             </div>

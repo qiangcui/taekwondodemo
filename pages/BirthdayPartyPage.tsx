@@ -28,6 +28,7 @@ const BirthdayPartyPage: React.FC = () => {
                 setTimeLeft((prev) => {
                     if (prev <= 1) {
                         setStatus('idle');
+                        setFormData({ parentName: '', childName: '', email: '', phone: '', date: '' });
                         return 0;
                     }
                     return prev - 1;
@@ -65,7 +66,6 @@ Phone: ${formData.phone}`
             });
 
             setStatus('success');
-            setFormData({ parentName: '', childName: '', email: '', phone: '', date: '' });
         } catch (error) {
             console.error("Error sending message:", error);
             setStatus('error');
