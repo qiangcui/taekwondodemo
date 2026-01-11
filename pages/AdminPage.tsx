@@ -422,8 +422,8 @@ const AdminPage: React.FC = () => {
                                                 </div>
                                                 <div>
                                                     <p className="text-gray-500 text-xs">Email/Phone</p>
-                                                    <p className="text-gray-600 truncate">{booking.email}</p>
-                                                    <p className="text-gray-600">{booking.phone}</p>
+                                                    <p className="text-gray-600 text-base break-all">{booking.email}</p>
+                                                    <p className="text-gray-600 text-base">{booking.phone}</p>
                                                 </div>
                                                 <div>
                                                     <p className="text-gray-500 text-xs">Participant</p>
