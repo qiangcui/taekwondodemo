@@ -5,24 +5,24 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What is Tae Kwon Do and how is it different from other martial arts?",
-    answer: "The martial arts were developed thousands of years ago as forms of self-defense. Tae Kwon Do is the martial art developed in Korea. In terms of techniques, Tae Kwon Do emphasizes kicks more than other martial arts, making it ideal for improving balance, flexibility, and endurance."
+    question: "What programs do you offer?",
+    answer: "We offer programs for kids (4-5), youth (6-12), adults (13+), and families. Each program is designed for its age group and focuses on building skills, confidence, and a positive experience."
   },
   {
     question: "At what age can kids start?",
-    answer: "Our experience has shown that most children ages four and up are able to participate in Tae Kwon Do classes. At this age your child can take our trial lesson program, which allows our instructors to work with them one-on-one and evaluate their readiness for group classes."
+    answer: "Most children ages four and up can participate. We offer a trial so our instructors can work with your child one-on-one and help you find the right fit. No prior experience is required."
   },
   {
-    question: "Do martial arts increase aggressiveness?",
-    answer: "Our instructors continually educate that martial arts are a form of exercise and self improvement, not a tool for bullying. Tae Kwon Do students are taught to be humble, courteous, and respectful along with being careful about when and where they practice their self-defense skills."
+    question: "Is the environment safe and supportive?",
+    answer: "Yes. Our programs emphasize respect, cooperation, and personal growth. Instructors teach in a step-by-step way so everyone can progress at their own pace in a safe, structured setting."
   },
   {
-    question: "How safe is it to learn martial arts?",
-    answer: "Tae Kwon Do is safe and fun for students of all ages and physical abilities. Classes are taught by expert instructors as students are shown techniques in a step-by-step manner at their own pace. A thorough stretching routine, matted flooring, and protective safety equipment are all part of our commitment to ensuring student safety."
+    question: "How safe are the classes?",
+    answer: "Safety is a priority. We use appropriate equipment, warm-ups, and progressions. Classes are supervised by trained instructors. If you have specific concerns, we're happy to discuss them before you start."
   },
   {
-    question: "What if I never did martial arts before or if I'm out of shape?",
-    answer: "Beginners are always welcome. Our beginner's martial arts program makes it easy to get started. New students receive one-on-one instruction designed to provide an introduction to the basics of Tae Kwon Do. Plus, our belt system allows all students to train at their own pace and improve their physical condition gradually."
+    question: "I'm a complete beginner or out of shape. Can I still join?",
+    answer: "Absolutely. Beginners are welcome. Our trial and beginner programs are designed to introduce you to the basics in a supportive way. You can improve your fitness and skills gradually at your own pace."
   }
 ];
 
@@ -39,7 +39,7 @@ const FAQPage: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/FAQ.jpg)` }}
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1200)` }}
         ></div>
         <div className="absolute inset-0 bg-black/60"></div>
 

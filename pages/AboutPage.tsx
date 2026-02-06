@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 
 const AboutPage: React.FC = () => {
     const affiliations = [
-        { name: 'Kukkiwon', src: import.meta.env.BASE_URL + 'assets/images/kukkiwon-copy.jpg' },
-        { name: 'Yong-In University', src: import.meta.env.BASE_URL + 'assets/images/yongin.jpg' },
-        { name: 'KTA', src: import.meta.env.BASE_URL + 'assets/images/KTA_Redlogo7.png' },
-        { name: 'WTF', src: import.meta.env.BASE_URL + 'assets/images/WTF_Logo.png' },
+        { name: 'Partner A', src: 'https://placehold.co/120x80/333/fff?text=Partner+A' },
+        { name: 'Partner B', src: 'https://placehold.co/120x80/333/fff?text=Partner+B' },
+        { name: 'Partner C', src: 'https://placehold.co/120x80/333/fff?text=Partner+C' },
+        { name: 'Partner D', src: 'https://placehold.co/120x80/333/fff?text=Partner+D' },
     ];
 
     return (
@@ -17,7 +17,7 @@ const AboutPage: React.FC = () => {
                 {/* Reuse exterior image for consistency */}
                 <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/exterior-tigerlee.jpg)` }}
+                    style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
                 ></div>
 
                 {/* Overlay */}
@@ -49,8 +49,8 @@ const AboutPage: React.FC = () => {
                         viewport={{ once: true }}
                     >
                         <img
-                            src={import.meta.env.BASE_URL + "assets/images/Master_Lee_Profile.png"}
-                            alt="Master Seungbeom Lee"
+                            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400"
+                            alt="Lead Instructor"
                             className="w-full h-auto max-w-[240px] md:max-w-[360px] mx-auto"
                         />
                     </motion.div>
@@ -61,27 +61,27 @@ const AboutPage: React.FC = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="font-heading text-4xl font-bold text-gray-900 mb-2">Master Seungbeom Lee</h2>
+                        <h2 className="font-heading text-4xl font-bold text-gray-900 mb-2">Alex Chen</h2>
                         <h3 className="text-xl text-brand-red font-bold uppercase tracking-wide mb-6">Head Instructor</h3>
 
                         <div className="prose prose-lg text-gray-600 space-y-4">
                             <p>
-                                Born in Seoul, South Korea, Master Seungbeom Lee has studied Tae Kwon Do for more than 20 years and has over 15 years of instruction and coaching experience.
+                                Alex has over 15 years of teaching and coaching experience. He is passionate about helping people of all ages build confidence and reach their goals.
                             </p>
                             <p>
-                                Master Lee served his mandatory military service in the Navy, where he was the Head Tae Kwon Do instructor at the Korean Naval Academy for three years.
+                                Before joining Demo Academy, he led programs at several community centers and built a strong reputation for clear, supportive instruction.
                             </p>
                             <p>
-                                Following his naval service, he graduated with honors with a Bachelor of Arts degree in Tae Kwon Do from the elite Yong-In University, where the majority of Korea’s Olympic and world medalists in Tae Kwon Do graduate. Only five members of his 400-member graduating class were awarded honors.
+                                He believes in combining high standards with a positive, welcoming environment so that every participant can progress at their own pace.
                             </p>
                             <p>
-                                Adding to his international experience, Master Lee was also selected to be a member of an exclusive Tae Kwon Do mission trip that traveled and performed throughout Japan.
+                                Alex holds relevant certifications in instruction and safety, and is committed to ongoing training so our programs stay current and effective.
                             </p>
                             <p>
-                                In 2006, Master Lee left South Korea, where he trained and instructed in the United States with Master Woo Sup Kim, a three-time Korean National Champion and the captain of the 2012 United States Olympic Tae Kwon Do team. Master Lee helped his students develop their skills, which enabled them to compete in tournaments, both at the national and international level. In 2012, he was selected to be the Head Master at Tiger Kim’s flagship school in Clemmons, NC, which, under his leadership, has grown to be Tiger Kim’s largest training center. He was also the head master at the Tiger Kim’s location in Tega Cay, South Carolina, where he was responsible for growing a new school.
+                                At Demo Academy, he works with the team to design programs that are both challenging and accessible, so everyone can see progress and feel supported.
                             </p>
                             <p>
-                                Master Lee currently holds a 8th Degree Black Belt from the World Tae Kwon Do Federation (WTF) and has a First degree black belt in Judo. He is a Kukkiwon Certified Tae Kwon Do Master Instructor and a certified Tae Kwon Do Referee. Master Lee is a standing member of the Korea Tae Kwon Do Association (KTA), is certified in First Aid and CPR and is also a certified chiropractor who loves to snowboard.
+                                He is certified in First Aid and CPR and stays active in professional development to keep our offerings up to date.
                             </p>
                         </div>
                     </motion.div>
@@ -110,25 +110,25 @@ const AboutPage: React.FC = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="font-heading text-4xl font-bold text-gray-900 mb-6">Heejeong Lee</h2>
+                        <h2 className="font-heading text-4xl font-bold text-gray-900 mb-6">Sam Rivera</h2>
                         <div className="prose prose-lg text-gray-600 space-y-4">
                             <p>
-                                Heejeong Lee was born in Seoul, South Korea, where she began her Tae kwon Do training and received her black belt.
+                                Sam brings a background in education and community programs. She has worked with youth and families for over a decade.
                             </p>
                             <p>
-                                She came to the United States to attend The University of North Carolina at Greensboro School of Music. While a student at UNCG, she was selected to be a member of the UNCG Orchestra and also performed with the Wind Ensemble. Mrs. Lee was also selected to tour Washington D.C. as part of a series of concerts with the Ensemble.
+                                She believes that learning works best in a supportive, inclusive environment where everyone can contribute and grow.
                             </p>
                             <blockquote className="border-l-4 border-brand-red pl-4 italic text-gray-800 bg-gray-50 py-2 pr-2 my-4 text-left">
                                 The Wind Ensemble’s album, “Fireworks” would later go on to become a Grammy Entry List in the Best Classical Album and Best Orchestral Performance categories.
                             </blockquote>
                             <p>
-                                Shortly before her return to Korea, Heejeong met Master Lee, who was training with three-time national Korean champion, Master Woo Sup Kim, in nearby Winston-Salem.
+                                At Demo Academy, Sam helps design programs that are engaging for all ages.
                             </p>
                             <p>
-                                Heejeong did not return to Korea and instead resumed her Tae Kwon Do training and retested for her black belt. She also married Master Lee.
+                                She works closely with our instructors to keep our curriculum effective and fun.
                             </p>
                             <p className="font-medium text-brand-dark">
-                                Mrs. Lee was a gold medalist at 5th annual Yong In Presidential Cup Tae Kwon Do tournament.
+                                She holds certifications in program design and youth development.
                             </p>
                         </div>
                     </motion.div>
@@ -140,8 +140,8 @@ const AboutPage: React.FC = () => {
                         viewport={{ once: true }}
                     >
                         <img
-                            src={import.meta.env.BASE_URL + "assets/images/Lee_Family.png"}
-                            alt="Lee Family"
+                            src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400"
+                            alt="Team"
                             className="w-full h-auto max-w-[240px] md:max-w-[360px] mx-auto lg:mx-0"
                         />
                     </motion.div>
@@ -171,7 +171,7 @@ const AboutPage: React.FC = () => {
 
                 <div className="container mx-auto px-4 relative z-10">
                     <span className="block text-xl md:text-2xl font-heading font-bold text-white uppercase tracking-widest mb-8">
-                        Schedule a trial lesson. It'll only take a minute.
+                        Schedule a trial. It only takes a minute.
                     </span>
                     <Link
                         to="/get-started"

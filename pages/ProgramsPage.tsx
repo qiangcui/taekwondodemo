@@ -104,15 +104,13 @@ const ProgramSection: React.FC<{
 };
 
 const ProgramsPage: React.FC = () => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
   return (
     <div className="pt-0 bg-white">
       {/* Page Header */}
       <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${base}/assets/images/exterior-tigerlee.jpg)` }}
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
         ></div>
         <div className="absolute inset-0 bg-black/60"></div>
 
@@ -133,30 +131,30 @@ const ProgramsPage: React.FC = () => {
       {/* Little Tigers */}
       <ProgramSection
         id="little-tigers"
-        title="Little Tigers"
+        title="Kids Program"
         titleClass="text-black"
         fullBleed={true}
-        image={`${base}/assets/images/little-tigers.jpg`}
+        image="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800"
         content={
           <>
             <p className="mb-4">
-              This year, why not give your little one the opportunity to learn something fun and challenging? Our Little Tiger classes are specially designed to provide four to five-year-olds the perfect mix of fun, martial arts, confidence building, and skill development.
+              Our kids program is designed for ages 4–5. We combine fun activities with clear structure so young children build focus, confidence, and basic skills in a positive setting.
             </p>
             <p className="mb-4">
-              This program is aimed at introducing preschoolers and kindergarteners to Tae Kwon Do.
+              Classes are short and engaging, with an emphasis on participation and encouragement.
             </p>
             <p className="mb-6">
-              During a 30-minute class, preschoolers and kindergarteners gain motor skill development and a sense of confidence within our playful and positive environment. Between the fun and exercise, your child will also gain greater focus, which will carry over to home and school.
+              Many families see improved focus and confidence at home and at school. Our instructors are patient and experienced with this age group.
             </p>
-            <h4 className="font-bold text-gray-900 mb-3">Many benefits of this program include:</h4>
+            <h4 className="font-bold text-gray-900 mb-3">Benefits include:</h4>
             <ul className="space-y-2">
               {[
                 'Focus and self-control',
-                'Willingness to work toward a goal',
-                'A structured learning environment',
-                'The desire to lead through example',
-                'A great outlet to burn excess energy',
-                'Patient and enthusiastic instructors'
+                'Working toward goals',
+                'Structured, positive environment',
+                'Building confidence',
+                'Active, fun outlet',
+                'Supportive instructors'
               ].map((item, i) => (
                 <li key={i} className="flex items-start">
                   <span className="mr-2 text-black">•</span>
@@ -172,28 +170,28 @@ const ProgramsPage: React.FC = () => {
       <ProgramSection
         id="children"
         title="Children's Classes"
-        subtitle="Give your child the opportunity to learn something fun and challenging!"
-        image={`${base}/assets/images/children.jpg`}
+        subtitle="Give your child a fun, challenging way to learn and grow!"
+        image="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800"
         isReversed={true}
         fullBleed={true}
         content={
           <>
             <p className="mb-6">
-              Our children's program is focused on the core of martial arts – creating a foundation of discipline, focus, and energy that will build success for life. Students with a base in these martial arts principles will fare better socially and developmentally both at school and at home. And most importantly, they'll learn this valuable set of skills while having fun and staying active.
+              Our youth program builds discipline, focus, and confidence in a fun, active setting. Participants gain skills that help at school and at home while staying engaged and motivated.
             </p>
-            <h4 className="font-bold text-gray-900 mb-3">We Offer Multiple Children's Classes based on the Child's Age:</h4>
+            <h4 className="font-bold text-gray-900 mb-3">We offer classes by age:</h4>
             <ul className="space-y-2">
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-brand-red rounded-full mr-3"></div>
-                <span>Little Tigers <strong className="text-brand-dark">(age 3-5)</strong></span>
+                <span>Kids Program <strong className="text-brand-dark">(age 4-5)</strong></span>
               </li>
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-brand-red rounded-full mr-3"></div>
-                <span>Children <strong className="text-brand-dark">(age 6-13)</strong></span>
+                <span>Youth Class <strong className="text-brand-dark">(age 6-12)</strong></span>
               </li>
               <li className="flex items-center">
                 <div className="w-2 h-2 bg-brand-red rounded-full mr-3"></div>
-                <span>Family <strong className="text-brand-dark">(All Ages)</strong></span>
+                <span>Family Class <strong className="text-brand-dark">(All Ages)</strong></span>
               </li>
             </ul>
           </>
@@ -204,26 +202,26 @@ const ProgramsPage: React.FC = () => {
       <ProgramSection
         id="family"
         title="Family Classes"
-        subtitle="A family that kicks together sticks together!"
-        image={`${base}/assets/images/family.jpg`}
+        subtitle="Learn and grow together as a family!"
+        image="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800"
         fullBleed={true}
         content={
           <>
             <p className="mb-4">
-              Have fun with the entire family in one convenient location! Our 50-minute Family Classes provide the perfect opportunity to get fit, share goals, meet other fun-loving people and most importantly, spend time together. Our flexible classes will also allow you to train based on your family's schedule.
+              Family classes let you get active and learn together in one place. Our sessions are designed so all ages can participate, share goals, and spend quality time as a family. Schedules are flexible to fit your routine.
             </p>
             <p className="mb-6">
-              Tiger World Class Tae Kwon Do offers special opportunities designed to enhance your martial arts experience and strengthen friendships with other families. These events include:
+              We also run special events and opportunities to connect with other families and build community. These include:
             </p>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {[
-                'Tournaments',
-                'Belt Testing',
-                'Walking in Holiday Parades',
-                'Fund Raisers for local charities',
-                'Summer Camps',
-                'Halloween Party',
-                'Parents Night Out'
+                'Special workshops',
+                'Progress events',
+                'Community outings',
+                'Local charity events',
+                'Summer programs',
+                'Seasonal parties',
+                'Family nights'
               ].map((item, i) => (
                 <li key={i} className="flex items-start">
                   <CheckCircle size={18} className="text-brand-red mr-2 mt-1 shrink-0" />
@@ -239,18 +237,18 @@ const ProgramsPage: React.FC = () => {
       <ProgramSection
         id="adult"
         title="Adult Classes"
-        subtitle="Tae Kwon Do offers many benefits for adults!"
-        image={`${base}/assets/images/adults.jpg`}
+        subtitle="Our adult program offers many benefits!"
+        image="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800"
         imageContainerClass="relative h-96 lg:h-[750px]"
         isReversed={true}
         fullBleed={true}
         content={
           <>
             <p className="mb-6">
-              The health benefits of regular Tae Kwon Do practice are huge. Our classes combine the best of several forms of physical training. Stretching and calisthenics improve flexibility and balance. Kicking drills and partner work increase endurance and timing and different forms and curriculum requirements will improve strength and muscle tone.
+              Our adult program offers a full-body workout that builds strength, flexibility, and endurance. Classes mix stretching, conditioning, and skill work so you stay engaged and see progress.
             </p>
             <p>
-              Most adults also experience weight loss, more confidence and a great way to release stress. And, since no two classes are the same, you will experience a varied, high-energy workout that will motivate you to attend lessons regularly.
+              Many participants notice improved energy, confidence, and stress relief. Classes are varied so you stay motivated and can attend regularly at your own pace.
             </p>
           </>
         }

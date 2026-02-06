@@ -303,7 +303,7 @@ const AdminPage: React.FC = () => {
             <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/exterior-tigerlee.jpg)` }}
+                    style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
                 ></div>
                 <div className="absolute inset-0 bg-black/60"></div>
 

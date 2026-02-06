@@ -17,31 +17,20 @@ const navItems: NavItem[] = [
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const DEMO_IMAGES = {
+  logo: 'https://images.unsplash.com/photo-1555597673-b21d5c935865?w=240&h=100&fit=crop',
+  kids: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400',
+  children: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400',
+  family: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=400',
+  adults: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400',
+  birthday: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800',
+};
+
 const programLinks = [
-  {
-    label: 'Little Tigers',
-    href: '/programs#little-tigers',
-    image: `${base}/assets/images/little-tigers.jpg`,
-    age: 'Ages 4-5'
-  },
-  {
-    label: "Children's Class",
-    href: '/programs#children',
-    image: `${base}/assets/images/children.jpg`,
-    age: 'Ages 6-12'
-  },
-  {
-    label: 'Family Class',
-    href: '/programs#family',
-    image: `${base}/assets/images/family.jpg`,
-    age: 'All Ages'
-  },
-  {
-    label: 'Adult Class',
-    href: '/programs#adult',
-    image: `${base}/assets/images/adults.jpg`,
-    age: 'Ages 13+'
-  },
+  { label: 'Kids Program', href: '/programs#little-tigers', image: DEMO_IMAGES.kids, age: 'Ages 4-5' },
+  { label: "Youth Class", href: '/programs#children', image: DEMO_IMAGES.children, age: 'Ages 6-12' },
+  { label: 'Family Class', href: '/programs#family', image: DEMO_IMAGES.family, age: 'All Ages' },
+  { label: 'Adult Class', href: '/programs#adult', image: DEMO_IMAGES.adults, age: 'Ages 13+' },
 ];
 
 const Navbar: React.FC = () => {
@@ -88,9 +77,9 @@ const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link to="/">
               <img
-                src={`${base}/assets/images/tiger-lees-logo.png`}
-                alt="Tiger Lee's Logo"
-                className="h-24 sm:h-24 md:h-28 w-auto transition-all duration-300 object-contain"
+                src={DEMO_IMAGES.logo}
+                alt="Demo Academy"
+                className="h-14 sm:h-22 md:h-28 w-auto transition-all duration-300 object-contain"
               />
             </Link>
           </div>
@@ -152,7 +141,7 @@ const Navbar: React.FC = () => {
                             {/* Background Image */}
                             <div
                               className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
-                              style={{ backgroundImage: `url('${base}/assets/images/birthday-blur-cake-40183.jpg')` }}
+                              style={{ backgroundImage: `url('${DEMO_IMAGES.birthday}')` }}
                             />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/90 to-brand-dark/40 group-hover:to-brand-red/40 transition-colors duration-300" />
@@ -164,8 +153,8 @@ const Navbar: React.FC = () => {
                                   <Cake size={24} />
                                 </div>
                                 <div>
-                                  <h5 className="font-bold text-lg leading-tight group-hover:text-yellow-200 transition-colors">Birthday Parties</h5>
-                                  <p className="text-xs text-gray-200 opacity-90">A special celebration with a kick!</p>
+                                  <h5 className="font-bold text-lg leading-tight group-hover:text-yellow-200 transition-colors">Party Packages</h5>
+                                  <p className="text-xs text-gray-200 opacity-90">Book a fun celebration with us!</p>
                                 </div>
                               </div>
                               <div className="bg-white/20 p-2 rounded-full group-hover:bg-white/40 transition-colors">
@@ -200,7 +189,7 @@ const Navbar: React.FC = () => {
                 Get Started
               </Link>
               <a
-                href="https://www.facebook.com/WorldClassTigerLee/"
+                href="https://www.facebook.com/"
                 target="_blank"
                 rel="noreferrer"
                 className={`transition-colors hover:text-[#1877F2] ${scrolled ? 'text-gray-800' : 'text-white shadow-sm'}`}
@@ -209,7 +198,7 @@ const Navbar: React.FC = () => {
                 <Facebook size={24} />
               </a>
               <a
-                href="https://www.youtube.com/user/TigerLeeTaeKwonDo"
+                href="https://www.youtube.com/"
                 target="_blank"
                 rel="noreferrer"
                 className={`transition-colors hover:text-[#FF0000] ${scrolled ? 'text-gray-800' : 'text-white shadow-sm'}`}
@@ -288,10 +277,10 @@ const Navbar: React.FC = () => {
                 Get Started
               </Link>
               <div className="flex space-x-4 pt-4 border-t justify-center">
-                <a href="https://www.facebook.com/WorldClassTigerLee/" target="_blank" rel="noreferrer">
+                <a href="https://www.facebook.com/" target="_blank" rel="noreferrer">
                   <Facebook className="text-blue-600 cursor-pointer" />
                 </a>
-                <a href="https://www.youtube.com/user/TigerLeeTaeKwonDo" target="_blank" rel="noreferrer">
+                <a href="https://www.youtube.com/" target="_blank" rel="noreferrer">
                   <Youtube className="text-red-600 cursor-pointer" />
                 </a>
               </div>

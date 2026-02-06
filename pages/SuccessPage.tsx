@@ -45,7 +45,7 @@ const SuccessPage: React.FC = () => {
                         </h1>
 
                         <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-                            Thank you for choosing <span className="font-bold text-brand-dark">Tiger Lee's World Class Tae Kwon Do</span>.
+                            Thank you for choosing <span className="font-bold text-brand-dark">Demo Academy</span>.
                             We have received your appointment and will send a confirmation email shortly.
                         </p>
 
@@ -83,10 +83,10 @@ const SuccessPage: React.FC = () => {
                         <div className="mt-16 pt-8 border-t border-gray-100 text-center">
                             <p className="text-gray-400 font-medium mb-6 uppercase tracking-widest text-sm">Follow our journey</p>
                             <div className="flex justify-center space-x-6">
-                                <a href="https://www.instagram.com/tigerleetkd/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-red transition-colors">
+                                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-brand-red transition-colors">
                                     <Instagram size={28} />
                                 </a>
-                                <a href="https://www.facebook.com/TigerLeesTKD/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
+                                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-600 transition-colors">
                                     <Facebook size={28} />
                                 </a>
                             </div>

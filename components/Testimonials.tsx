@@ -5,33 +5,31 @@ import { Testimonial } from '../types';
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: 'Diana Choi',
+    name: 'Jordan M.',
     role: 'Parent',
-    content: "Our twin boys joined the Little Tigers program and have fallen in love with TKD. The masters teach authentic moves and instill discipline through three major focuses - eye, mind and body - while still creating a fun atmosphere.",
+    content: "My kids joined the program and really enjoy it. The instructors keep things fun while teaching focus and respect. We've seen a positive change at home and at school.",
   },
   {
     id: 2,
-    name: 'Nick Dalesio',
+    name: 'Sam T.',
     role: 'Parent',
-    content: "The Masters keep the children entertained while teaching discipline and focus. My son can't stop talking about going to class. Because of his excitement, I joined myself and it's been a great father-son bonding experience.",
+    content: "The team does a great job keeping the class engaging. My child looks forward to every session. I signed up too and it's become a great activity we share together.",
   },
   {
     id: 3,
-    name: 'Bill Sparks',
-    role: 'Member/Parent',
-    content: "A school that you can entrust your children with to learn and to progress with safety in mind. A school that will teach your family skills that will enhance your life.",
+    name: 'Alex R.',
+    role: 'Member',
+    content: "A place where you can learn and grow in a safe, supportive environment. The programs are well run and the community is welcoming. I'm glad we found it.",
   }
 ];
 
 const Testimonials: React.FC = () => {
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
   return (
     <section id="testimonials" className="py-24 relative overflow-hidden">
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: `url('${base}/assets/images/homepage.png')` }}
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920')` }}
       ></div>
 
       {/* Dark Overlay for readability */}

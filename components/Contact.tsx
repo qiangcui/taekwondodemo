@@ -66,7 +66,7 @@ const Contact: React.FC = () => {
           <div className="flex flex-col h-full">
             <div className="mb-8">
               <h2 className="font-heading text-4xl font-bold mb-6 text-gray-900">Contact Us</h2>
-              <p className="text-gray-600 text-lg">We are here to answer any questions you may have about our programs. Reach out to us and we'll respond as soon as we can.</p>
+              <p className="text-gray-600 text-lg">Have questions about our programs? Get in touch and we'll get back to you as soon as we can.</p>
             </div>
 
             {/* Google Map - Expanded */}
@@ -75,11 +75,11 @@ const Contact: React.FC = () => {
                 width="100%"
                 height="100%"
                 frameBorder="0"
-                title="Tiger Lee's World Class Tae Kwon Do Location"
+                title="Demo Academy Location"
                 scrolling="no"
                 marginHeight={0}
                 marginWidth={0}
-                src="https://maps.google.com/maps?q=Tiger%20Lee's%20World%20Class%20Tae%20Kwon%20Do%20Parker%20CO&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=123+Main+Street+Your+City&t=&z=13&ie=UTF8&iwloc=&output=embed"
                 className="absolute inset-0 w-full h-full border-0"
                 allowFullScreen
               ></iframe>

@@ -14,7 +14,7 @@ const pdfOptions = {
 };
 
 const SchedulePage: React.FC = () => {
-  const pdfUrl = "assets/pdf/Tiger-Lees-Class-Schedule-2025.pdf";
+  const pdfUrl = "assets/pdf/Demo-Academy-Schedule.pdf";
 
   const [numPages, setNumPages] = useState<number | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -54,7 +54,7 @@ const SchedulePage: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/exterior-tigerlee.jpg)` }}
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
         ></div>
         <div className="absolute inset-0 bg-black/60"></div>
 
@@ -69,7 +69,7 @@ const SchedulePage: React.FC = () => {
             </h1>
             <div className="w-24 h-1 bg-brand-red rounded-full"></div>
             <p className="text-gray-300 mt-4 text-lg max-w-2xl">
-              We have a flexible schedule to fit you and your children's needs. We make Tae Kwon Do work for you.
+              We have a flexible schedule to fit you and your family. Find a time that works for you.
             </p>
           </motion.div>
         </div>
@@ -81,7 +81,7 @@ const SchedulePage: React.FC = () => {
             <h2 className="font-heading text-3xl font-bold text-gray-900">Current Schedule</h2>
             <a
               href={pdfUrl}
-              download="Tiger-Lee-Schedule.pdf"
+              download="Demo-Academy-Schedule.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center bg-brand-red text-white px-6 py-2 rounded-full font-bold hover:bg-red-700 transition-colors shadow-md"
@@ -103,7 +103,7 @@ const SchedulePage: React.FC = () => {
                 </p>
                 <a
                   href={pdfUrl}
-                  download="Tiger-Lee-Schedule.pdf"
+                  download="Demo-Academy-Schedule.pdf"
                   className="inline-block bg-brand-dark text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
                 >
                   Download PDF Instead

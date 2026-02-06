@@ -315,7 +315,7 @@ const CTA: React.FC = () => {
           >
             <div className="prose prose-lg text-gray-300 mb-8">
               <p className="leading-relaxed mb-6">
-                Tiger Lee's World Class Tae Kwon Do has made it easy to get started. We offer a $20 trial program which gives new students the opportunity to try Tae Kwon Do, without obligation. During the trial period, new students will participate in a class with people of similar ability. The trial classes also allow parents and/or students to talk with our instructors about the many benefits Tae Kwon Do offers. There is no obligation at all after the trial program.
+                Demo Academy makes it easy to get started. We offer a trial program that gives new participants a chance to try our programs with no obligation. During the trial, you'll join a session with others at a similar level and can speak with our team about what we offer. There is no obligation after the trial.
               </p>
 
               <div className="flex items-center text-brand-red font-bold text-lg mb-6">
@@ -325,14 +325,14 @@ const CTA: React.FC = () => {
             </div>
 
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-xl mb-8">
-              <h3 className="text-xl font-bold text-white mb-4">This Beginner Special Program includes:</h3>
+              <h3 className="text-xl font-bold text-white mb-4">This trial program includes:</h3>
               <ul className="space-y-4">
                 {[
-                  'V.I.P. 1-on-1 classes as well as 1 group class',
-                  'Free Uniform',
-                  'The opportunity to observe classes and speak with our professional instructors',
-                  'Personal tour of our new, state-of-the-art facility',
-                  'A review of our flexible, class schedule'
+                  'One introductory one-on-one session plus one group class',
+                  'Starter kit included',
+                  'Chance to observe classes and meet our instructors',
+                  'Tour of our facility',
+                  'Overview of our schedule and programs'
                 ].map((item, i) => (
                   <li key={i} className="flex items-start text-gray-300">
                     <CheckCircle className="text-brand-red mr-3 shrink-0 mt-1" size={18} />
@@ -360,7 +360,7 @@ const CTA: React.FC = () => {
                   <span className="text-red-100/50 text-sm font-bold whitespace-nowrap ml-4">Step {currentStep} of 4</span>
                 </div>
                 <div className="w-fit inline-flex items-center px-4 py-1.5 rounded-lg text-base font-black bg-white text-brand-red uppercase tracking-wider shadow-lg">
-                  Trial Lesson Special - $20
+                  Trial Offer
                 </div>
               </div>
 
@@ -386,8 +386,8 @@ const CTA: React.FC = () => {
                               <label className="block text-sm font-bold text-gray-700 uppercase tracking-wide">Which class are you interested in?</label>
                               <div className="grid grid-cols-1 gap-3">
                                 {[
-                                  'Little Tigers (4-5 yrs)',
-                                  'Children\'s Class (6-12 yrs)',
+                                  'Kids Program (4-5 yrs)',
+                                  'Youth Class (6-12 yrs)',
                                   'Adult Class (13+ yrs)',
                                   'Family Class'
                                 ].map((lesson) => (
@@ -576,11 +576,11 @@ const CTA: React.FC = () => {
                                 </div>
                               </div>
                               <div className="relative">
-                                <input type="text" name="participantName" required placeholder="Student's Full Name" value={formData.participantName} onChange={handleChange} className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none" />
+                                <input type="text" name="participantName" required placeholder="Participant Full Name" value={formData.participantName} onChange={handleChange} className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none" />
                                 <User className="absolute left-3 top-3.5 text-gray-400" size={18} />
                               </div>
                               <div className="relative">
-                                <input type="text" name="participantAge" required placeholder="Student's Age" value={formData.participantAge} onChange={handleChange} className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none" />
+                                <input type="text" name="participantAge" required placeholder="Participant Age" value={formData.participantAge} onChange={handleChange} className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none" />
                                 <Clock className="absolute left-3 top-3.5 text-gray-400" size={18} />
                               </div>
                               <textarea name="notes" placeholder="Notes (Injuries, goals, etc.)" rows={3} value={formData.notes} onChange={(e) => setFormData(p => ({ ...p, notes: e.target.value }))} className="w-full pl-4 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-red outline-none resize-none" />
@@ -623,7 +623,7 @@ const CTA: React.FC = () => {
                                     className={`p-4 rounded-xl border-2 font-bold transition-all flex flex-col items-start space-y-1 ${formData.paymentMethod === 'Pay Locally' ? 'border-brand-red bg-red-50 text-brand-red' : 'border-gray-100 text-gray-500'}`}
                                   >
                                     <span className="text-sm">Pay Locally</span>
-                                    <span className="text-[10px] opacity-70">Pay $20 at the studio</span>
+                                    <span className="text-[10px] opacity-70">Pay at the studio when you visit</span>
                                   </button>
                                   <button
                                     type="button"

@@ -71,7 +71,7 @@ const ContactPage: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/exterior-tigerlee.jpg)` }}
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
         ></div>
         <div className="absolute inset-0 bg-black/60"></div>
 
@@ -109,7 +109,7 @@ const ContactPage: React.FC = () => {
                   <MapPin className="text-brand-red" size={20} />
                 </div>
                 <div className="text-gray-600 leading-relaxed">
-                  <strong className="block text-gray-900 mb-1">Tiger Lee's World Class Tae Kwon Do</strong>
+                  <strong className="block text-gray-900 mb-1">Demo Academy</strong>
                   11153 S Parker Rd<br />
                   Units M & N<br />
                   Parker, CO 80134
@@ -147,7 +147,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 <div className="text-gray-600 leading-relaxed">
                   <strong className="block text-gray-900 mb-1">Email:</strong>
-                  tigerleeworldclass@gmail.com
+                  hello@demo-academy.example
                 </div>
               </div>
             </div>
@@ -236,11 +236,11 @@ const ContactPage: React.FC = () => {
           width="100%"
           height="100%"
           frameBorder="0"
-          title="Tiger Lee's World Class Tae Kwon Do Location"
+          title="Demo Academy Location"
           scrolling="no"
           marginHeight={0}
           marginWidth={0}
-          src="https://maps.google.com/maps?q=Tiger%20Lee's%20World%20Class%20Tae%20Kwon%20Do%20Parker%20CO&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          src="https://maps.google.com/maps?q=123+Main+Street+Your+City&t=&z=13&ie=UTF8&iwloc=&output=embed"
           style={{ border: 0 }}
           allowFullScreen
         ></iframe>
@@ -251,7 +251,7 @@ const ContactPage: React.FC = () => {
         <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-brand-dark rotate-45 border-b border-r border-gray-800"></div>
         <div className="container mx-auto px-4">
           <span className="inline-block text-white font-bold tracking-widest uppercase mb-6 md:mb-0 md:mr-8 align-middle text-sm md:text-base">
-            Schedule a trial lesson. It'll only take a minute.
+            Schedule a trial. It only takes a minute.
           </span>
           <Link
             to="/get-started"

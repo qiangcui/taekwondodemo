@@ -12,7 +12,6 @@ interface AccordionItem {
 
 const EducationPage: React.FC = () => {
   const [openSection, setOpenSection] = useState<string | null>('intro');
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   const toggleSection = (id: string) => {
     setOpenSection(openSection === id ? null : id);
@@ -21,34 +20,31 @@ const EducationPage: React.FC = () => {
   const sections: AccordionItem[] = [
     {
       id: 'intro',
-      title: 'What is Tae Kwon Do?',
+      title: 'About Our Programs',
       type: 'video-feature',
       content: (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           <div className="prose prose-lg text-gray-600">
             <p>
-              Tae Kwon Do (also known as Taekwondo) is the martial art of self-defense that came from Korea. It is one of the oldest martial arts in the world (over 2,000 years old).
+              Our programs are designed to build skills, confidence, and fitness for all ages. We focus on clear goals, positive reinforcement, and a supportive environment.
             </p>
             <p>
-              The meaning of the name Tae Kwon Do is an appropriate description of the key elements of this martial art: Tae (foot), Kwon (hand), Do (art).
+              Whether you're new to this type of activity or have some experience, our instructors will help you progress at your own pace.
             </p>
-            <h4 className="font-bold text-gray-900 mt-4 mb-2">Tae Kwon Do in the USA</h4>
+            <h4 className="font-bold text-gray-900 mt-4 mb-2">What We Offer</h4>
             <p>
-              In the 1950s a group of Korean master instructors travelled to America to spread the art. In the following decades Tae Kwon Do grew in popularity both as a martial art and as an international sport.
-            </p>
-            <p>
-              In 1973 Korea hosted the first Tae Kwon Do World Championships and the World Tae Kwon Do Federation was established as the international governing body. Today the WTF has 120 separate countries as its members, which includes over 20 million practitioners.
+              We offer classes for kids, youth, adults, and families. Each program is tailored to its age group and emphasizes safety, respect, and personal growth.
             </p>
             <p>
-              Tae Kwon Do was introduced as an Olympic demonstration sport in the 1988 Seoul Olympic Games. It later became a full medal sport at the 2000 Sydney Olympics.
+              Many of our participants see improvements in focus, fitness, and confidence. We welcome you to try a trial session and see if we're a good fit for you.
             </p>
           </div>
           <div className="space-y-6">
             <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg bg-black">
               <iframe
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/yzcsm8MePTU?rel=0"
-                title="What is Tae Kwon Do?"
+                src="https://www.youtube.com/embed/3AtDnEC4zk0?rel=0"
+                title="About Our Programs"
                 referrerPolicy="strict-origin-when-cross-origin"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -56,8 +52,8 @@ const EducationPage: React.FC = () => {
               ></iframe>
             </div>
             <img
-              src={`${base}/assets/images/tenets1.png`}
-              alt="Tenets of Tae Kwon Do"
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600"
+              alt="Program values"
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
@@ -72,21 +68,21 @@ const EducationPage: React.FC = () => {
         <div className="space-y-6">
           <div className="float-right ml-6 mb-4 w-1/3">
             <img
-              src={`${base}/assets/images/fitness-249x300.png`}
+              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300"
               alt="Physical Fitness"
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
           <div className="prose prose-lg text-gray-600">
             <p>
-              When most people think about Tae Kwon Do or other martial art disciplines, they typically focus on the self-defense and mental health benefits. However, you do not want to overlook the physical health benefits. Tae Kwon Do offers students of all ages a broad range of health benefits and can contribute to a better overall lifestyle.
+              Our programs offer a full-body workout that supports both fitness and mental well-being. Regular participation can lead to better health and a more active lifestyle.
             </p>
-            <p><strong>Cardio and circulation</strong><br />Tae Kwon Do requires you to engage all of your muscle groups, so it offers a good cardio workout. It gets your heart pumping and improves circulation throughout the body.</p>
-            <p><strong>Fat loss</strong><br />As your heart rate increases, your blood circulation improves, and various muscle groups get activated. Your body is forced to burn calories. Steady and regular workouts can ultimately result in substantial, healthy weight loss.</p>
-            <p><strong>Muscle toning</strong><br />One of the physical benefits of Tae Kwon Do training is that it strengthens our muscles, bones, joints, tendons, and ligaments.</p>
-            <p><strong>Increased flexibility</strong><br />At the beginning of each Tae Kwon Do training session, most instructors spend a few minutes stretching. Over time, this will increase your flexibility.</p>
-            <p><strong>Improved stamina</strong><br />As your muscles become stronger and your heart more active, your overall stamina level will increase.</p>
-            <p><strong>Stress relief</strong><br />Similar to many other physical activities and exercises, Tae Kwon Do helps relieve stress and diminishes the intensity of physical ailments.</p>
+            <p><strong>Cardio and circulation</strong><br />Classes engage multiple muscle groups and get your heart rate up, improving circulation and cardiovascular health.</p>
+            <p><strong>Fat loss</strong><br />Regular activity helps burn calories and, combined with a balanced lifestyle, can support healthy weight management.</p>
+            <p><strong>Muscle toning</strong><br />Training strengthens muscles, bones, joints, and connective tissue over time.</p>
+            <p><strong>Increased flexibility</strong><br />We include stretching and mobility work in sessions, which can improve flexibility with consistent practice.</p>
+            <p><strong>Improved stamina</strong><br />As you get stronger and more conditioned, your overall stamina and energy levels can increase.</p>
+            <p><strong>Stress relief</strong><br />Physical activity is a proven way to reduce stress and improve mood and overall well-being.</p>
           </div>
           <div className="clear-both"></div>
         </div>
@@ -100,19 +96,19 @@ const EducationPage: React.FC = () => {
         <div className="flex flex-col md:flex-row gap-8">
           <div className="md:w-1/3">
             <img
-              src={`${base}/assets/images/focus-161x300.png`}
+              src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300"
               alt="Improved Focus"
               className="w-full h-auto rounded-lg shadow-md max-w-[200px] mx-auto md:mx-0"
             />
           </div>
           <div className="md:w-2/3 prose prose-lg text-gray-600">
-            <p><strong>Better focus for children through martial arts</strong></p>
-            <p>If you are looking to improve your child's focus and increase their concentration skills, you should consider getting your child involved in martial arts classes.</p>
-            <p><strong>The Importance of Exercise</strong></p>
-            <p>Recent studies are proving that exercise has a wide range of brain-related benefits, including improving attention and reducing stress and anxiety. For children, exercise causes them to be less impulsive, which makes them more ready to learn.</p>
-            <p>When you exercise, your brain elevates the supply of endorphins, dopamine, norepinephrine, and serotonin. These chemicals affect focus and attention.</p>
-            <p><strong>Why Tae Kwon Do?</strong></p>
-            <p>Activities that require you to pay close attention to body movements – such as tae kwon do – put the body's attention system to work. This can be especially beneficial for kids and adolescents with ADHD.</p>
+            <p><strong>Better focus for children</strong></p>
+            <p>If you want to help your child improve focus and concentration, structured physical activity can make a real difference.</p>
+            <p><strong>The importance of exercise</strong></p>
+            <p>Research shows that exercise supports brain function, including attention and stress regulation. For kids, regular activity can reduce impulsivity and support readiness to learn.</p>
+            <p>Exercise affects brain chemistry in positive ways, influencing focus and mood.</p>
+            <p><strong>Why our programs?</strong></p>
+            <p>Activities that require attention to body movements and sequences help train focus and can be especially helpful for children who benefit from structure and physical engagement.</p>
           </div>
         </div>
       )
@@ -125,7 +121,7 @@ const EducationPage: React.FC = () => {
         <div className="space-y-6">
           <div className="float-right ml-6 mb-4 w-1/3 max-w-[250px]">
             <img
-              src={`${base}/assets/images/stress.png`}
+              src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=300"
               alt="Control Stress"
               className="w-full h-auto rounded-lg shadow-md"
             />
@@ -135,8 +131,8 @@ const EducationPage: React.FC = () => {
             <p>Too much stress in your life? Exercise is a great way to manage stress so that it no longer interferes with your health and happiness. And adult martial arts classes may be the best answer to finding a form of exercise you actually want to do.</p>
             <p><strong>How Exercise Helps Reduce Stress:</strong></p>
             <p>Exercise helps both the brain and body handle stress better. Regular exercise improves mood, relieves anxiety and depression, and increases energy. Studies have found that exercise increases concentrations of norepinephrine in brain regions involved in the body's stress response.</p>
-            <p><strong>Tae Kwon Do: a workout you'll enjoy</strong></p>
-            <p>To make exercise a stress-reducer, you need to find a form of exercise you enjoy. At Tiger Lee's Tae Kwon Do, our belt system has goal setting built into it, and our atmosphere is friendly and encouraging.</p>
+            <p><strong>A workout you'll enjoy</strong></p>
+            <p>To make exercise a stress-reducer, find something you enjoy. At Demo Academy, we build goal-setting into our programs and keep the atmosphere friendly and encouraging.</p>
           </div>
           <div className="clear-both"></div>
         </div>
@@ -150,7 +146,7 @@ const EducationPage: React.FC = () => {
         <div className="space-y-6">
           <div className="float-right ml-6 mb-4 w-1/3 max-w-[250px]">
             <img
-              src={`${base}/assets/images/self-defense-282x300.png`}
+              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300"
               alt="Self Defense"
               className="w-full h-auto rounded-lg shadow-md"
             />
@@ -162,8 +158,8 @@ const EducationPage: React.FC = () => {
             <p>Men are more likely than women to fight back 'in self-defense.' However, if all else fails you may have no choice but to defend yourself or someone you care for. Adult martial arts classes will teach you techniques, strength, speed, and balance.</p>
             <p><strong>Self-Defense for Women</strong></p>
             <p>Taking self-defense classes is a safe way to prepare yourself. Knowing that you could do something if it came down to it will give you peace of mind.</p>
-            <p><strong>Why Tae Kwon Do</strong></p>
-            <p>As a student you will learn a variety of strikes, blocks, take-downs, throws, and joint locks. Knowledge will give you confidence.</p>
+            <p><strong>Why our program</strong></p>
+            <p>Participants learn practical skills in a structured, safe environment. Building knowledge and ability can increase confidence in daily life.</p>
           </div>
           <div className="clear-both"></div>
         </div>
@@ -177,18 +173,18 @@ const EducationPage: React.FC = () => {
         <div className="space-y-6">
           <div className="float-right ml-6 mb-4 w-1/3 max-w-[200px]">
             <img
-              src={`${base}/assets/images/bully.png`}
-              alt="Stop Bullying"
+              src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=300"
+              alt="Confidence"
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
           <div className="prose prose-lg text-gray-600">
-            <p>At Tiger Lee's World Class Tae Kwon Do, kids are not taught to use violence as a solution to bullying. Tiger Lee's training is a great way to instill confidence. There is no greater deterrence to bullying than confidence.</p>
+            <p>At Demo Academy, we teach confidence and respect, not aggression. Building confidence is one of the best ways to help children respond to bullying and stand up for themselves in a positive way.</p>
             <p><strong>Victims of bullying typically do not retaliate</strong></p>
             <p>Children targeted by bullies are usually intelligent, sensitive, and creative. Unfortunately, they are often never taught how to defend themselves.</p>
             <p><strong>Martial arts classes can help</strong></p>
             <p>Martial arts classes will teach children various techniques for blocking, breaking an attacker's grasp, and other methods to protect themselves from injury.</p>
-            <p><strong>Why Tiger Lee's Tae Kwon Do?</strong></p>
+            <p><strong>Why our program?</strong></p>
             <ul className="list-disc pl-4 space-y-2">
               <li>All students are taught that martial arts are to be used only as a last resort.</li>
               <li>Our students learn a variety of blocks and take-downs applicable to threatening situations.</li>
@@ -202,29 +198,29 @@ const EducationPage: React.FC = () => {
     },
     {
       id: 'comparison',
-      title: 'Tae Kwon Do or Karate?',
+      title: 'Choosing a Program',
       type: 'text-image',
       content: (
         <div className="space-y-6">
           <div className="float-right ml-6 mb-4 w-1/3 max-w-[200px]">
             <img
-              src={`${base}/assets/images/tkd_vs_Karate-169x300.png`}
-              alt="TKD vs Karate"
+              src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=300"
+              alt="Programs"
               className="w-full h-auto rounded-lg shadow-md"
             />
           </div>
           <div className="prose prose-lg text-gray-600">
-            <p>Whenever someone is considering beginning martial arts classes, they often ask, "How are Tae Kwon Do and karate different?"</p>
-            <p>The core principles of both stress self-discipline and a high code of personal conduct. Both have a sport competition aspect.</p>
-            <p><strong>So, how are they different?</strong></p>
+            <p>When you're looking for a program, it helps to know what matters to you and your family.</p>
+            <p>We focus on self-discipline, respect, and personal growth in a supportive environment.</p>
+            <p><strong>What to consider</strong></p>
             <ul className="list-disc pl-4 space-y-2">
-              <li>Tae Kwon Do emphasizes kicking techniques, while Karate focuses on hand strikes.</li>
-              <li>Tae Kwon Do originated in Korea, while Karate comes from Japan.</li>
-              <li>Tae Kwon Do is an Olympic sport.</li>
-              <li>Prearranged sequences are referred to as 'poomsae' in Tae Kwon Do, and 'kata' in Karate.</li>
+              <li>Quality and style of instruction</li>
+              <li>Facility safety and cleanliness</li>
+              <li>Atmosphere and culture</li>
+              <li>Schedule and location</li>
             </ul>
-            <p><strong>How to choose?</strong></p>
-            <p>When trying to decide, consider: quality of instruction, facility, atmosphere, and class schedule. It is a good idea to visit the schools you are considering.</p>
+            <p><strong>How to choose</strong></p>
+            <p>We recommend visiting in person, trying a trial session, and asking questions. Finding the right fit makes a big difference in long-term success and enjoyment.</p>
           </div>
           <div className="clear-both"></div>
         </div>
@@ -232,16 +228,16 @@ const EducationPage: React.FC = () => {
     },
     {
       id: 'korean-terms',
-      title: 'Korean Terms',
+      title: 'Video Resources',
       type: 'grid-video',
       content: (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
-            { title: "White Belt Terms", vid: "fB9_6Vg5j_w" },
-            { title: "Yellow Belt Terms", vid: "W4Ht0mWAfoA" },
-            { title: "Green Stripe Terms", vid: "MBynLT-dY2g" },
-            { title: "Green Belt Terms", vid: "rZH7zy_sZ8s" },
-            { title: "Blue Stripe Terms", vid: "nLKrQ-qQ-cE" }
+            { title: "Intro to Basics", vid: "3AtDnEC4zk0" },
+            { title: "Getting Started", vid: "3AtDnEC4zk0" },
+            { title: "Next Steps", vid: "3AtDnEC4zk0" },
+            { title: "Practice Tips", vid: "3AtDnEC4zk0" },
+            { title: "Building Skills", vid: "3AtDnEC4zk0" }
           ].map((item, idx) => (
             <div key={idx} className="bg-gray-100 rounded-lg overflow-hidden shadow-md">
               <div className="aspect-video w-full bg-black">
@@ -270,7 +266,7 @@ const EducationPage: React.FC = () => {
       content: (
         <div className="w-full">
           <audio controls className="w-full">
-            <source src={`${base}/assets/audio/basicmovement-1.mp3`} type="audio/mpeg" />
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>
@@ -283,7 +279,7 @@ const EducationPage: React.FC = () => {
       content: (
         <div className="w-full">
           <audio controls className="w-full">
-            <source src={`${base}/assets/audio/breathing_form.mp3`} type="audio/mpeg" />
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
         </div>
@@ -297,7 +293,7 @@ const EducationPage: React.FC = () => {
       <div className="relative h-[400px] w-full overflow-hidden bg-brand-dark flex items-center">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${base}/assets/images/exterior-tigerlee.jpg)` }}
+          style={{ backgroundImage: `url(https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200)` }}
         ></div>
         <div className="absolute inset-0 bg-black/60"></div>
 
@@ -312,7 +308,7 @@ const EducationPage: React.FC = () => {
             </h1>
             <div className="w-24 h-1 bg-brand-red rounded-full"></div>
             <p className="text-gray-300 mt-4 text-lg">
-              Learn more about the art, culture, and benefits of Tae Kwon Do.
+              Learn more about our programs, benefits, and resources.
             </p>
           </motion.div>
         </div>

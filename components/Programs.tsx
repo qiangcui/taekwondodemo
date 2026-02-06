@@ -4,36 +4,41 @@ import { Program } from '../types';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const DEMO_IMAGES = {
+  kids: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600',
+  children: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600',
+  family: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=600',
+  adults: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600',
+};
 
 const programsData: Program[] = [
   {
     id: 'little-tigers',
-    title: 'Little Tigers',
+    title: 'Kids Program',
     ageGroup: '(4-5 yr olds)',
-    description: 'Working through a martial art and the belt ranking system gives kids measurable goals to follow that are realistic to attain. The sense of accomplishment a child feels by mastering a new technique or graduating to a new belt follows him everywhere he goes!',
-    image: `${base}/assets/images/little-tigers-class.jpg`
+    description: 'Our kids program helps young children build focus, follow simple goals, and feel proud of their progress. They learn in a fun, supportive setting suited to their age.',
+    image: DEMO_IMAGES.kids
   },
   {
     id: 'children',
-    title: "Children's Class",
+    title: "Youth Class",
     ageGroup: '(6-12 yr olds)',
-    description: 'Working through a martial art and the belt ranking system gives kids measurable goals to follow that are realistic to attain. The sense of accomplishment a child feels by mastering a new technique or graduating to a new belt follows him everywhere he goes!',
-    image: `${base}/assets/images/children-class.jpg`
+    description: 'Youth classes give kids clear goals and a sense of achievement. Participants build skills step by step and gain confidence that carries into school and daily life.',
+    image: DEMO_IMAGES.children
   },
   {
     id: 'family',
     title: 'Family Class',
     ageGroup: '(Kids & Adult)',
-    description: "At Tiger Lee's , we teach families, as well as individuals. The change in a family's demeanor after a few months is amazing. It becomes a source of fitness and team building with a bit of friendly competition, too. Many families will find that they have something in common and will share their time on an off the mat.",
-    image: `${base}/assets/images/family-class-large.jpg`
+    description: 'Family classes let you learn and grow together. Many families find it a great way to stay active, bond, and enjoy a shared activity in a welcoming environment.',
+    image: DEMO_IMAGES.family
   },
   {
     id: 'adult',
     title: 'Adult Class',
     ageGroup: '(13 yr olds and up)',
-    description: 'Do you need more energy, a boost in self-confidence and a great way to reduce stress? Then Tae Kwon Do may be the perfect fitness program for you!',
-    image: `${base}/assets/images/adult-classes.jpg`
+    description: 'Looking for more energy, confidence, and a healthy way to manage stress? Our adult program offers a supportive environment to get fit and learn new skills.',
+    image: DEMO_IMAGES.adults
   }
 ];
 

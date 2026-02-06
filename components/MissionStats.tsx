@@ -26,18 +26,18 @@ const MissionStats: React.FC = () => {
             >
               <h2 className="font-heading text-4xl font-bold text-gray-900 mb-6">Our Mission</h2>
               <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-                At Tiger Lee's, we strive to provide a clean, bright, and safe training environment – the finest facility, and the best martial arts instruction available in the Denver area.
+                At Demo Academy, we provide a clean, safe, and welcoming environment with quality instruction and a focus on growth for all ages.
               </p>
               <p className="text-gray-600 mb-4 leading-relaxed">
-                It is our intention to balance positive discipline and a high level of expectation with respect, enthusiasm, encouragement, and support. We constantly do our best to be role models for what we would like our students to learn.
+                We balance clear expectations with respect, encouragement, and support. Our team aims to be positive role models and to help every participant succeed.
               </p>
 
               <div className="mt-8 p-6 bg-gray-50 border-l-4 border-brand-red rounded-r-lg shadow-sm">
                 <h3 className="font-bold text-lg text-gray-900 mb-2">Our Core Goals</h3>
                 <ul className="list-disc list-inside text-gray-700 space-y-2">
-                  <li>Highest quality martial arts instruction</li>
-                  <li>Helping students reach maximum potential</li>
-                  <li>Positive impact through Tae Kwon Do</li>
+                  <li>High-quality instruction and programs</li>
+                  <li>Helping everyone reach their potential</li>
+                  <li>Positive impact in our community</li>
                 </ul>
               </div>
             </motion.div>
@@ -47,8 +47,8 @@ const MissionStats: React.FC = () => {
           <div className="lg:w-1/2 w-full">
             <div className="relative mb-12 transform hover:scale-[1.02] transition-transform duration-500">
               <img
-                src={`${base}/assets/images/home_banner5.png`}
-                alt="Martial Arts Group"
+                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800"
+                alt="Group activity"
                 className="rounded-xl shadow-2xl w-full object-cover"
               />
               <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-dots-pattern opacity-20 hidden md:block"></div>

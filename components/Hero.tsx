@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
       {/* Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${base}/assets/images/children-sparring.jpg')` }}
+        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1920')` }}
       ></div>
 
       {/* Overlay */}
@@ -26,17 +26,17 @@ const Hero: React.FC = () => {
           className="w-full flex flex-col items-center"
         >
           <h2 className="text-brand-red font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase mb-4 text-sm md:text-xl">
-            World Class Tae Kwon Do
+            Demo Academy
           </h2>
           <h1 className="font-heading text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-            Building Character & <br className="hidden sm:block" />
+            Build Skills & <br className="hidden sm:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
-              Confidence Is Our Specialty
+              Confidence Together
             </span>
           </h1>
 
           <p className="text-gray-200 text-base md:text-xl max-w-2xl mx-auto mb-10 drop-shadow-md px-4">
-            Discipline, Respect, and Confidence. Join Denver's premier martial arts academy.
+            Quality programs for all ages. Join our community and discover what we offer.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-4 w-full px-6">
@@ -57,8 +57,8 @@ const Hero: React.FC = () => {
                 </div>
               </div>
               <div className="text-left">
-                <span className="block text-[10px] uppercase tracking-widest text-gray-300 font-bold mb-0.5 whitespace-nowrap">Produced by</span>
-                <span className="block font-bold text-base md:text-lg group-hover:text-brand-red transition-colors whitespace-nowrap">Denver 9 News</span>
+                <span className="block text-[10px] uppercase tracking-widest text-gray-300 font-bold mb-0.5 whitespace-nowrap">Watch</span>
+                <span className="block font-bold text-base md:text-lg group-hover:text-brand-red transition-colors whitespace-nowrap">Intro Video</span>
               </div>
             </button>
           </div>
@@ -93,8 +93,8 @@ const Hero: React.FC = () => {
               <X size={24} />
             </button>
             <iframe
-              src="https://www.youtube.com/embed/h-rkcDsyPrc?autoplay=1&mute=1&rel=0"
-              title="Tiger Lee World Class Tae Kwon Do - 9News Feature"
+              src="https://www.youtube.com/embed/3AtDnEC4zk0?autoplay=1&mute=1&rel=0"
+              title="Demo Academy Intro"
               className="w-full h-full"
               referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

@@ -3,10 +3,10 @@ import { motion } from 'framer-motion';
 import { CheckCircle, Calendar, User, Phone, Mail, Gift, Cake, ChevronRight } from 'lucide-react';
 
 const galleryImages = [
-    import.meta.env.BASE_URL + "assets/images/birthday3.jpg",
-    import.meta.env.BASE_URL + "assets/images/birthday2.jpg",
-    import.meta.env.BASE_URL + "assets/images/birthday1.jpg",
-    import.meta.env.BASE_URL + "assets/images/birthday5.jpg"
+    "https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600",
+    "https://images.unsplash.com/photo-1558636508-e0db3814bd1d?w=600",
+    "https://images.unsplash.com/photo-1464349095422-9d1e3a8a1c4a?w=600",
+    "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=600"
 ];
 
 const BirthdayPartyPage: React.FC = () => {
@@ -78,7 +78,7 @@ Phone: ${formData.phone}`
             <div className="relative h-[450px] w-full overflow-hidden bg-brand-dark flex items-center">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}assets/images/birthday-blur-cake-40183.jpg)` }}
+                    style={{ backgroundImage: `url(https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=1200)` }}
                 ></div>
                 <div className="absolute inset-0 bg-black/50"></div>
 
@@ -93,7 +93,7 @@ Phone: ${formData.phone}`
                         </h1>
                         <div className="w-24 h-1 bg-brand-red rounded-full mx-auto mb-6"></div>
                         <p className="text-2xl text-white font-light tracking-wide uppercase">
-                            A special celebration with a kick!
+                            Book a fun celebration with us!
                         </p>
                     </motion.div>
                 </div>
@@ -114,13 +114,13 @@ Phone: ${formData.phone}`
                         </h2>
                         <div className="prose prose-lg text-gray-600 mb-6">
                             <p className="mb-4">
-                                At Tiger Lee's World Class Taekwondo, Birthday Parties are designed to be fun! You'll never see kids running around wild or standing around bored. A trained instructor will supervise and coordinate everything from beginning to end.
+                                At Demo Academy, our party packages are designed to be fun and organized. A trained staff member will run activities from start to finish so kids stay engaged and everyone has a great time.
                             </p>
                             <p className="mb-4 font-medium text-brand-dark">
-                                Your child's birthday party will be memorable, fun, well organized and professional.
+                                Your child's party will be memorable, fun, well organized, and professional.
                             </p>
                             <p>
-                                Each party is filled with specially designed activities and games, making it possible for every child to have fun while learning basic Tae Kwon Do skills. Additionally, there is no prior martial arts experience required to participate... so everyone 4 & up will be able to join in.
+                                Each party includes activities and games so every child can participate and have fun. No prior experience is required; everyone ages 4 and up can join in.
                             </p>
                         </div>
                     </motion.div>
@@ -133,8 +133,8 @@ Phone: ${formData.phone}`
                     >
                         <div className="relative rounded-2xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-all duration-500">
                             <img
-                                src={import.meta.env.BASE_URL + "assets/images/birthday4.jpg"}
-                                alt="Board Breaking Birthday"
+                                src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?w=800"
+                                alt="Party"
                                 className="w-full h-auto"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8">
@@ -186,7 +186,7 @@ Phone: ${formData.phone}`
                                     'Your child will cut the cake with a real sword',
                                     'Unlimited friends and family',
                                     'Cake, decorations, and invitations provided',
-                                    'Non-stop games, activities and exciting Tae Kwon Do!',
+                                    'Non-stop games and activities!',
                                     'Gift certificates for 2 free weeks for every guest',
                                     'We handle ALL the set-up and ALL THE CLEAN UP!'
                                 ].map((item, i) => (
