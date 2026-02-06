@@ -79,7 +79,7 @@ const Navbar: React.FC = () => {
               <img
                 src={DEMO_IMAGES.logo}
                 alt="Demo Academy"
-                className="h-14 sm:h-22 md:h-28 w-auto transition-all duration-300 object-contain"
+                className="h-14 sm:h-22 md:h-24 w-auto transition-all duration-300 object-contain"
               />
             </Link>
           </div>
