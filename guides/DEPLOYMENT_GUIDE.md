@@ -38,19 +38,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 ---
 
-## 3. Vercel Setup (Clean URLs)
-Vercel is better for professional demos because it provides "Clean URLs" without the `#` or subfolder.
+## 3. Vercel Setup (Push to GitHub → Auto-Deploy)
+You don’t deploy to Vercel manually. Connect the repo once in Vercel; after that, **every push to GitHub deploys to Vercel automatically**.
 
-1. **Import**: Login to [Vercel.com](https://vercel.com) and import your GitHub repo.
-2. **The 404 Fix**: For Single Page Apps (SPA), you must create a `vercel.json` in your root folder:
-```json
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
-```
-3. **Result**: You can now refresh any page (like `/about-us`) without getting a 404 error.
+1. **Connect the repo**: Log in at [vercel.com](https://vercel.com) → **Add New** → **Project** → **Import** your Git repository (`qiangcui/taekwondodemo`).
+2. **Set the project name**: When configuring the import, set **Project Name** to `taekwondodemo` (or any name you want). That becomes `taekwondodemo.vercel.app`.
+3. **Build settings**: Leave as default (Framework Preset: Vite, Build Command: `npm run build`, Output Directory: `dist`).
+4. **Deploy once**: Click Deploy. From then on, **every push to `main`** will trigger a new Vercel build and deploy—no extra steps.
+5. **SPA routing**: The repo already has a `vercel.json` that rewrites all routes to `/index.html`, so refreshes on routes like `/about-us` work.
 
 ---
 
@@ -66,7 +61,7 @@ When working with me (AI Studio), you can use these commands to keep your site l
 ## 5. Dual-Deployment Summary
 | Feature | GitHub Pages | Vercel |
 | :--- | :--- | :--- |
-| **URL Type** | `user.github.io/repo/` | `repo.vercel.app` |
+| **URL Type** | `user.github.io/taekwondodemo/` | `taekwondodemo.vercel.app` (or your chosen name) |
 | **Best For** | Internal testing | Client-facing demo |
-| **Page Refresh**| Requires HashRouter or "404 hack" | Works perfectly via `vercel.json` |
-| **Automation** | Via GitHub Actions | Instant via GitHub Integration |
+| **Page Refresh**| Requires HashRouter or base path | Works via `vercel.json` rewrites |
+| **Automation** | `.github/workflows/deploy.yml` | Vercel Git integration (push to GitHub → auto-deploy) |
